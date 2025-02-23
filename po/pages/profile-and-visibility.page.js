@@ -20,7 +20,7 @@ class ProfileAndVisibilityPage extends BasePage {
   }
 
   async validateEndpointUsername() {
-    await expect(browser).toHaveUrl(expect.stringMatching(new RegExp(`/${mafejimenezh}$`)));
+    await expect(browser).toHaveUrl(expect.stringMatching(new RegExp('/mafejimenezh$')));
   }
 
   

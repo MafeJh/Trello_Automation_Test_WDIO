@@ -1,6 +1,6 @@
 const BaseComponent = require("../common/base.component");
 
-class HomeComponent extends BaseComponent {
+class LandingComponent extends BaseComponent {
   constructor() {
     super("div#BXP-APP");
   }
@@ -11,4 +11,4 @@ class HomeComponent extends BaseComponent {
 
 }
 
-module.exports = HomeComponent;
+module.exports = LandingComponent;

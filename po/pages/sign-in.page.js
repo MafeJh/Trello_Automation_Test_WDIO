@@ -1,5 +1,5 @@
 const BasePage = require("./base.page");
-const LogInComponent = require("../components/logIn/logIn.component");
+const LogInComponent = require("../components/sign-in/sign-in.component");
 
 class LogInPage extends BasePage {
   constructor() {

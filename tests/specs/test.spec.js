@@ -1,54 +1,81 @@
 const { pages } = require("./../../po/index");
 
 describe("Navigating in trello web page", () => {
-  let homePage = null;
-  let boardsPage = null;
-  let logInPage = null;
+  let landingPage = null;
+  let homeBoardsPage = null;
+  let signInPage = null;
   let profileAndVisibility = null;
   let headerPage = null;
-  let createBoardPage = null;
+  let boardPage = null;
+
   beforeEach(async () => {
     // Instances
-    homePage = pages("home");
-    logInPage = pages("login");
-    boardsPage = pages("board");
+    landingPage = pages("landing");
+    signInPage = pages("signIn");
+    homeBoardsPage = pages("homeBoards");
     profileAndVisibility = pages("profileAndVisibility");
     headerPage = pages("header");
-    createBoardPage = pages("createBoard");
+    boardPage = pages("board");
     // Open URL
     await browser.maximizeWindow();
     await browser.deleteCookies();
-    await homePage.open();
-  
+    await landingPage.open();
   });
   afterEach(() => {
-    homePage = null;
-    boardsPage = null;
-    logInPage = null;
+    landingPage = null;
+    homeBoardsPage = null;
+    signInPage = null;
     profileAndVisibility = null;
     headerPage = null;
-    createBoardPage = null;
+    boardPage = null;
   });
   it("Log In in Trello web site with valid credentials", async () => {
-    await homePage.clickOnSingInButton();
-    await logInPage.typeInEmailInput();
-    await logInPage.clickOnContinueButton();
-    await logInPage.typeInPasswordInput();
-    await logInPage.clickOnLogInButton();
-    //await browser.pause(20000); // 20 segundos
-    await boardsPage.validateEmail();
+    // Sign In
+    await landingPage.clickOnSingInButton();
+    await signInPage.typeInEmailInput();
+    await signInPage.clickOnContinueButton();
+    await signInPage.typeInPasswordInput();
+    await signInPage.clickOnLogInButton();
+    
+    // Validate email
+    await homeBoardsPage.validateEmail();
 
-    await boardsPage.clickOnProfileAndVisibility();
-    //await browser.pause(20000);
+    // Edit profile and visibility
+    await homeBoardsPage.validateHomeBoardsEndpoint();
+    await homeBoardsPage.clickOnProfileAndVisibility();
     await profileAndVisibility.enterUsername();
     await profileAndVisibility.enterBiography();
     await profileAndVisibility.clickOnSaveButton();
 
-    
-    await headerPage.clickOnAddBoardButton();
+    // Create new board
+    await headerPage.openCreateBoardMenu();
+    await headerPage.verifyCreateMenuIsDisplayed();
     await headerPage.clickOnCreateBoard();
-    await createBoardPage.clickSelectBackground();
-    await createBoardPage.typeTitleInput();
+    await headerPage.selectBackground();
+    await headerPage.typeTitleInput();
+    await headerPage.clickOnCreateButton();
+
+    // Verify new board is created
+    await boardPage.validateBoardsTitle();
+    await boardPage.validateEndpointBoardsTitle();
+
+    // Create a list
+
+    // Create a card 
+
+    // Card filtering (MAFE)
+
+    // Edit workspace (MAFE)
+
+    // Open Board Menu
+    await boardPage.openBoardMenu();
+    // Close current board
+    await boardPage.closeCurrentBoard();
+    await boardPage.confirmCloseCurrentBoard();
+    await boardPage.deleteCurrentBoard();
+    await boardPage.confirmDeleteCurrentBoard();
+    // Verify is on Home Boards Page
+    await homeBoardsPage.validateHomeBoardsEndpoint();
   });
 
   /*

@@ -1,9 +1,9 @@
-const HomePage = require("./home.page");
-const BoardsPage = require("./boards.page");
-const LogInPage = require("./logIn.page");
-const ProfileAndVisibilityPage = require("./profileAndVisibility.page");
+const LandingPage = require("./landing.page");
+const HomeBoardsPage = require("./home-boards.page");
+const SignInPage = require("./sign-in.page");
+const ProfileAndVisibilityPage = require("./profile-and-visibility.page");
 const HeaderPage = require("./header.page");
-const CreateBoardPage = require("./createBoard.page");
+const BoardPage = require("./board.page");
 /**
  *
  * @param {*} page {'Home'}
@@ -13,12 +13,12 @@ const CreateBoardPage = require("./createBoard.page");
 // HomePage has access to all the elements in the form (selector of those elements)
 function pages(page) {
   const items = {
-    home: new HomePage(),
-    board: new BoardsPage(),
-    login: new LogInPage(),
+    landing: new LandingPage(),
+    homeBoards: new HomeBoardsPage(),
+    signIn: new SignInPage(),
     profileAndVisibility: new ProfileAndVisibilityPage(),
     header: new HeaderPage(),
-    createBoard: new  CreateBoardPage()
+    board: new BoardPage(),
   };
   return items[page];
 }

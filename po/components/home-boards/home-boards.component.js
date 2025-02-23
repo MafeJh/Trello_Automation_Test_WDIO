@@ -1,6 +1,6 @@
 const BaseComponent = require("../common/base.component");
 
-class BoardsComponent extends BaseComponent {
+class HomeBoardsComponent extends BaseComponent {
   constructor() {
     super("body");
   }
@@ -16,6 +16,10 @@ class BoardsComponent extends BaseComponent {
   get profileAndVisibility(){
     return this.rootEl.$("a[data-testid='account-menu-profile']  span.BmRHtH7FIX0jcL");
   }
+
+  get searchInput() {
+    return this.rootEl.$("[data-test-id='search-dialog-input']");
+  }
 }
 
-module.exports = BoardsComponent;
+module.exports = HomeBoardsComponent;

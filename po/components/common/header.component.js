@@ -2,17 +2,20 @@ const BaseComponent = require("../common/base.component");
 
 class HeaderComponent extends BaseComponent {
   constructor() {
-    super("div");
+    super('#header[data-testid="authenticated-header"]');
   }
 
-  get addBoardButton(){
-    return this.rootEl.$("div[id='surface'] span[data-testid='AddIcon']");
+  get homeBoardLink() {
+    return this.rootEl.$("a[aria-label='Volver al inicio']");
   }
 
-  get createBoard(){
-    return this.rootEl.$("button[data-testid='header-create-board-button']");
+  get createMenuBtn() {
+    return this.rootEl.$("button[data-testid='header-create-menu-button']");
   }
 
+  get searchInput() {
+    return this.rootEl.$("input[data-test-id='search-dialog-input']");
+  }
 }
 
 module.exports = HeaderComponent;
