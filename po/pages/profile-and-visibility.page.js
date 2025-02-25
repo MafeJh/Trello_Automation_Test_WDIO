@@ -23,7 +23,13 @@ class ProfileAndVisibilityPage extends BasePage {
     await expect(browser).toHaveUrl(expect.stringMatching(new RegExp('/mafejimenezh$')));
   }
 
-  
+  async updateProfile() {
+    await this.enterUsername();
+    await this.enterBiography();
+    await this.clickOnSaveButton();
+  }
+
+
 
 
 }

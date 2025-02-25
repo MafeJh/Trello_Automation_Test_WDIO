@@ -19,6 +19,50 @@ class BoardComponent extends BaseComponent {
     );
   }
 
+  // Board canvas
+  get boardCanvas() {
+    return this.rootEl.$('div[data-testid="board-canvas"]');
+  }
+
+  // Board list
+  get addBoardListActionBtn() {
+    return $('button[data-testid="list-composer-button"]');
+  }
+
+  get boardListInput() {
+    return this.boardCanvas.$('form textarea[data-testid="list-name-textarea"]');
+  }
+
+  get newBoardList() {
+    return this.boardCanvas.$(`#board li[data-testid="list-wrapper"]:nth-child(4)`);
+  }
+
+  get boardListMenuBtn() {
+    return this.newBoardList.$(`button[data-testid="list-edit-menu-button"]`);
+  }
+
+  get boardListOrderByBtn() {
+    return $(
+      '.atlaskit-portal-container section[data-testid="list-actions-popover"] ul > li:nth-child(5) > button'
+    );
+  }
+
+  optionToOrderByBtn(option ) {
+    return $(
+      `.atlaskit-portal-container section[data-testid="list-actions-popover"] ul > li:nth-child(${option}) a`
+    );
+  }
+
+  // Board card
+  get addCardActionBtn() {
+    return this.newBoardList.$('button[data-testid="list-add-card-button"]');
+  }
+
+  get listCardInput() {
+    return this.newBoardList.$('textarea[data-testid="list-card-composer-textarea"]');
+  }
+
+  // Board Menu
   get boardMenu() {
     return $('div[data-testid="board-menu-container"]');
   }
@@ -34,14 +78,14 @@ class BoardComponent extends BaseComponent {
   }
 
   get deleteBoardBtn() {
-    return this.boardMenu.$(
+    return $(
       'button[data-testid="close-board-delete-board-button"]'
     );
   }
 
   get confirmDeleteBoardBtn() {
     return $(
-      '.atlaskit-portal section button[data-testid="close-board-delete-board-confirm-button"]'
+      'section button[data-testid="close-board-delete-board-confirm-button"]'
     );
   }
 }

@@ -8,6 +8,19 @@ describe("Navigating in trello web page", () => {
   let headerPage = null;
   let boardPage = null;
 
+  async function setUp() {
+    // Open URL
+    await browser.maximizeWindow();
+    await browser.deleteCookies();
+    await landingPage.open();
+  }
+
+  async function cleanSetup() {
+    // await boardPage.deleteCurrentBoard();
+    // Verify is on Home Boards Page
+    // await homeBoardsPage.validateHomeBoardsEndpoint();
+  }
+
   beforeEach(async () => {
     // Instances
     landingPage = pages("landing");
@@ -16,12 +29,13 @@ describe("Navigating in trello web page", () => {
     profileAndVisibility = pages("profileAndVisibility");
     headerPage = pages("header");
     boardPage = pages("board");
-    // Open URL
-    await browser.maximizeWindow();
-    await browser.deleteCookies();
-    await landingPage.open();
+    // Setup test
+    await setUp();
   });
-  afterEach(() => {
+  afterEach(async () => {
+    // Clean setup
+    await cleanSetup();
+    // Clean instances
     landingPage = null;
     homeBoardsPage = null;
     signInPage = null;
@@ -36,46 +50,34 @@ describe("Navigating in trello web page", () => {
     await signInPage.clickOnContinueButton();
     await signInPage.typeInPasswordInput();
     await signInPage.clickOnLogInButton();
-    
     // Validate email
     await homeBoardsPage.validateEmail();
 
     // Edit profile and visibility
     await homeBoardsPage.validateHomeBoardsEndpoint();
     await homeBoardsPage.clickOnProfileAndVisibility();
-    await profileAndVisibility.enterUsername();
-    await profileAndVisibility.enterBiography();
-    await profileAndVisibility.clickOnSaveButton();
+    await profileAndVisibility.updateProfile();
 
     // Create new board
-    await headerPage.openCreateBoardMenu();
-    await headerPage.verifyCreateMenuIsDisplayed();
-    await headerPage.clickOnCreateBoard();
-    await headerPage.selectBackground();
-    await headerPage.typeTitleInput();
-    await headerPage.clickOnCreateButton();
+    await headerPage.createNewBoard('Bootcamp');
 
     // Verify new board is created
     await boardPage.validateBoardsTitle();
     await boardPage.validateEndpointBoardsTitle();
 
     // Create a list
+    await boardPage.createBoardList('Bootcamp list');
 
-    // Create a card 
+    // Create a cards
+    const cards = ['Bootcamp card 3', 'Bootcamp card 1', 'Bootcamp card 2'];
+    await boardPage.createCardOnList(cards);
 
-    // Card filtering (MAFE)
+    // Card filtering
+    await boardPage.filterCreatedCardsBy(3);// Alphabetically: 3
+    await browser.pause(3000);
 
-    // Edit workspace (MAFE)
+    // Edit workspace
 
-    // Open Board Menu
-    await boardPage.openBoardMenu();
-    // Close current board
-    await boardPage.closeCurrentBoard();
-    await boardPage.confirmCloseCurrentBoard();
-    await boardPage.deleteCurrentBoard();
-    await boardPage.confirmDeleteCurrentBoard();
-    // Verify is on Home Boards Page
-    await homeBoardsPage.validateHomeBoardsEndpoint();
   });
 
   /*

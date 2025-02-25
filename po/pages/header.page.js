@@ -15,7 +15,7 @@ class HeaderPage extends BasePage {
   }
 
   async clickOnCreateBoard() {
-    await this.boardPopover.createBoardBtn.waitForDisplayed({ timeout: 10000 }); // Espera hasta 10s
+    await this.boardPopover.createBoardBtn.waitForDisplayed({ timeout: 10000 });
     await this.boardPopover.createBoardBtn.click();
   }
 
@@ -27,8 +27,9 @@ class HeaderPage extends BasePage {
     await this.boardPopover.background.click();
   }
 
-  async typeTitleInput() {
-    await this.boardPopover.titleInput.setValue('Bootcamp');
+  async typeBoardName(boardName) {
+    await this.boardPopover.titleInput.waitForEnabled({ timeout: 10000, withinViewport: true });
+    await this.boardPopover.titleInput.setValue(boardName);
   }
 
   async clickOnCreateButton() {
@@ -37,23 +38,18 @@ class HeaderPage extends BasePage {
   }
 
   async goToHomeBoards() {
+    await this.header.homeBoardLink.waitForDisplayed({ timeout: 10000, withinViewport: true });
     await this.header.homeBoardLink.click();
   }
 
-  async searchForBoard(boardTitle) {
-    const searchInput = $('input[data-test-id="search-dialog-input"]');
-    console.log("¿El elemento existe en el DOM?", await this.header.searchInput.isExisting());
-    console.log("¿El elemento es visible?", await this.header.searchInput.isDisplayed());
-
-    console.log("¿El elemento existe en el DOM?", await searchInput.isExisting());
-    console.log("¿El elemento es visible?", await searchInput.isDisplayed());
-
-    // await searchInput.waitForDisplayed({ timeout: 10000, withinViewport: true });
-    // await searchInput.setValue(boardTitle);
-    // await browser.keys("Enter");
+  async createNewBoard(boardName) {
+    await this.openCreateBoardMenu();
+    await this.verifyCreateMenuIsDisplayed();
+    await this.clickOnCreateBoard();
+    await this.selectBackground();
+    await this.typeBoardName(boardName);
+    await this.clickOnCreateButton();
   }
-
-
 }
 
 module.exports = HeaderPage;
