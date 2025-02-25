@@ -38,10 +38,10 @@ When('the user edits their display name and bio', async () => {
   await profileAndVisibility.updateProfile();
 });
 Then('the profile should be updated with the new information', async () => {
-  // TODO: Verify elements
+  await profileAndVisibility.validateEndpointUsername();
 });
 Then('a success message should be displayed', async () => {
-  // TODO: Verify elements
+  await profileAndVisibility.validateAlertSaved();
 });
 
 // Scenario: User creates a new board

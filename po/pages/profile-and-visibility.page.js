@@ -29,7 +29,10 @@ class ProfileAndVisibilityPage extends BasePage {
     await this.clickOnSaveButton();
   }
 
-
+  async validateAlertSaved() {
+    await this.profileAndVisibility.alertSaved.waitForExist({ timeout: 5000 });
+    await expect(this.profileAndVisibility.alertSaved).toHaveText("Guardado", { timeout: 5000 });
+}
 
 
 }

@@ -16,6 +16,15 @@ class ProfileAndVisibilityComponent extends BaseComponent {
   get saveButton(){
     return this.rootEl.$("button[type='submit']");
   }
+
+  // get alertSaved(){
+  //   return this.rootEl.$("#FlagGroup > div > div > div.YEctMXs9uZbttS > span.QMKgZFIlTLiEJN"); //#FlagGroup > div > div > div.YEctMXs9uZbttS > span.QMKgZFIlTLiEJN
+  // }
+
+  get alertSaved() {
+    return $("div.YEctMXs9uZbttS > span.QMKgZFIlTLiEJN");
+}
+
 }
 
 module.exports = ProfileAndVisibilityComponent;
