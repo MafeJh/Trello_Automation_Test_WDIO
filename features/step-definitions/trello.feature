@@ -21,14 +21,7 @@ Feature: Trello
     When the user clicks on the "Create new board" button
     And enters a board name and selects a background color
     Then a new board should be created and displayed on the dashboard
-    And the user should be redirected to the new board's page
 
-  @SearchingForBoard
-  Scenario: User searches for an existing board
-    Given the user is on the Trello dashboard
-    When the user types the board name in the search bar
-    And presses the "Enter" key
-    Then the board matching the search criteria should be displayed in the results
 
   @AddBoardList
   Scenario: User adds a new list to a board
@@ -52,6 +45,14 @@ Feature: Trello
     Then only the cards matching the filter criteria should be displayed
     And non-matching cards should be hidden
 
+
+  @SearchingForBoard
+  Scenario: User searches for an existing board
+    Given the user is on the Trello dashboard
+    When the user types the board name in the search bar
+    And presses the "Enter" key
+    Then the board matching the search criteria should be displayed in the results
+    
   @EditUserWorkspace
   Scenario: User edits the workspace name and description
     Given the user is on the workspace settings page

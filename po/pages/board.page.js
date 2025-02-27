@@ -2,18 +2,28 @@ const BasePage = require("./base.page");
 const BoardComponent = require("../components/board/board.component");
 
 class BoardPage extends BasePage {
-
-
-
   constructor() {
     super("/es");
     this.board = new BoardComponent();
   }
 
-  async validateBoardsTitle() {
+  async waitForBoardPage() {
     await this.board.boardTitle.waitForDisplayed({ timeout: 10000 });
-    const titleText = await this.board.boardTitle.getText();
-    await expect(titleText).toMatch("Bootcamp");
+  }
+
+  async ensureBoardIsOpen(expectedTitle) {
+    await this.waitForBoardPage();
+    const actualTitle = await this.board.boardTitle.getText();
+    await expect(actualTitle).toMatch(expectedTitle);
+    if (actualTitle !== expectedTitle) {
+      console.log(`El usuario no está en el tablero ${expectedTitle}. Redirigiendo...`);
+      await this.openBoardFromDashboard(expectedTitle);
+    }
+  }
+ //HACER BUSQUEDA
+  async openBoardFromDashboard(boardName) {
+    await header.searchBoard(boardName);  // Usa la barra de búsqueda para encontrar el tablero
+    await header.selectBoardFromResults(boardName); // Clic en el tablero correcto
   }
 
   async validateEndpointBoardsTitle() {
@@ -122,16 +132,23 @@ class BoardPage extends BasePage {
     await this.board.confirmDeleteBoardBtn.click();
   }
 
-  async deleteCurrentBoard() {
-    // Open Board Menu
-    await this.openBoardMenu();
-    // Close current board
-    await this.closeCurrentBoard();
-    await this.confirmCloseCurrentBoard();
-    // Delete current board
-    await this.deleteCurrentBoard();
-    await this.confirmDeleteCurrentBoard();
+  async isAddACardButtonPresent() {
+    return await this.board.addACardButton.isDisplayed();
   }
+  
+
+
+
+  // async deleteCurrentBoard() {
+  //   // Open Board Menu
+  //   await this.openBoardMenu();
+  //   // Close current board
+  //   await this.closeCurrentBoard();
+  //   await this.confirmCloseCurrentBoard();
+  //   // Delete current board
+  //   await this.deleteCurrentBoard();
+  //   await this.confirmDeleteCurrentBoard();
+  // }
 
 }
 

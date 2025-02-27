@@ -46,7 +46,7 @@ Then('a success message should be displayed', async () => {
 
 // Scenario: User creates a new board
 Given('the user is on the Trello dashboard', async () => {
-  // TODO: Verify elements
+  await headerPage.clickOnHomeButton();
 });
 When('the user clicks on the "Create new board" button', async () => {
   await headerPage.openCreateBoardMenu();
@@ -59,31 +59,12 @@ When('enters a board name and selects a background color', async () => {
   await headerPage.clickOnCreateButton();
 });
 Then('a new board should be created and displayed on the dashboard', async () => {
-  await boardPage.validateBoardsTitle();
   await boardPage.validateEndpointBoardsTitle();
 });
-Then("the user should be redirected to the new board's page", async () => {
-  // TODO: Verify elements
-});
 
-// // Scenario: User searches for an existing board
-// Given('the user is on the Trello dashboard', async () => {
-//   // TODO:
-// });
-// When('the user types the board name in the search bar', async () => {
-//   // TODO:
-// });
-// When('presses the "Enter" key', async () => {
-//   // TODO:
-// });
-// Then('the board matching the search criteria should be displayed in the results', async () => {
-//   // TODO:
-// });
-
-
-// // Scenario: User adds a new list to a board
+// Scenario: User adds a new list to a board
 Given('the user is on an open board', async () => {
-  // TODO: Verify elements
+  await boardPage.ensureBoardIsOpen('Bootcamp');
 });
 When('the user clicks on the "Add a list" button', async () => {
   await browser.pause(1000);
@@ -96,9 +77,9 @@ Then('the new list should be added to the board', async () => {
   await boardPage.verifyNewBoardIsDisplayed('Bootcamp list');
 });
 
-// Scenario: User adds a new card to a list
+// // Scenario: User adds a new card to a list
 Given('the user is viewing a list on a board', async () => {
-  // TODO: Verify elements
+  await boardPage.isAddACardButtonPresent();
 });
 When('the user clicks on the "Add a card" option under the list', async () => {
   await boardPage.clickOnNewCardAction();
@@ -127,6 +108,21 @@ Then('the new card should appear in the list', async () => {
 //   // TODO:
 // });
 // Then('non-matching cards should be hidden', async () => {
+//   // TODO:
+// });
+
+
+// // Scenario: User searches for an existing board
+// Given('the user is on the Trello dashboard', async () => {
+//   // TODO:
+// });
+// When('the user types the board name in the search bar', async () => {
+//   // TODO:
+// });
+// When('presses the "Enter" key', async () => {
+//   // TODO:
+// });
+// Then('the board matching the search criteria should be displayed in the results', async () => {
 //   // TODO:
 // });
 

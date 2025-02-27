@@ -16,6 +16,10 @@ class HeaderComponent extends BaseComponent {
   get searchInput() {
     return this.rootEl.$("input[data-test-id='search-dialog-input']");
   }
+
+  get homeButton() {
+    return this.rootEl.$("a[aria-label='Volver al inicio']");
+  }
 }
 
 module.exports = HeaderComponent;

@@ -50,6 +50,10 @@ class HeaderPage extends BasePage {
     await this.typeBoardName(boardName);
     await this.clickOnCreateButton();
   }
+
+  async clickOnHomeButton(){
+    await this.header.homeButton.click();
+  }
 }
 
 module.exports = HeaderPage;

@@ -88,6 +88,11 @@ class BoardComponent extends BaseComponent {
       'section button[data-testid="close-board-delete-board-confirm-button"]'
     );
   }
+
+
+  get addACardButton(){
+    return $('li[data-list-id="67c0b27906689d7078fce0bc"] button[data-testid="list-add-card-button"]')
+  }
 }
 
 module.exports = BoardComponent;
