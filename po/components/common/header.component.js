@@ -13,13 +13,14 @@ class HeaderComponent extends BaseComponent {
     return this.rootEl.$("button[data-testid='header-create-menu-button']");
   }
 
-  get searchInput() {
+  get searchInput() { 
     return this.rootEl.$("input[data-test-id='search-dialog-input']");
   }
 
   get homeButton() {
     return this.rootEl.$("a[aria-label='Volver al inicio']");
   }
+
 }
 
 module.exports = HeaderComponent;

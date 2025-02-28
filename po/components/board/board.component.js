@@ -6,7 +6,7 @@ class BoardComponent extends BaseComponent {
   }
 
   get boardTitle() {
-    return this.rootEl.$("h1[data-testid='board-name-display']");
+    return $("h1[data-testid='board-name-display']");
   }
 
   get boardHeader() {
