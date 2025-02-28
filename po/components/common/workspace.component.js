@@ -22,9 +22,24 @@ class WorkSpaceComponent extends BaseComponent {
     return this.rootEl.$('span[data-testid="EditIcon"]');
   }
 
-
   get name(){
-    return $('input[data-testid="workspace-display-name"]');
+    return this.rootEl.$('input[data-testid="workspace-display-name"]');
+  }
+
+  get description(){
+    return this.rootEl.$('textarea[id="desc"]');
+  }
+
+  get saveButton(){
+    return this.rootEl.$('button[type="submit"]');
+  }
+
+  get workSpaceName(){
+    return this.rootEl.$('h2.SiP6d2d_8FAAkC');
+  }
+
+  get workSpaceDescription(){
+    return this.rootEl.$('div.ak-renderer-document p');
   }
 
 }

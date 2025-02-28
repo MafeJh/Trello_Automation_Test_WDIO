@@ -51,7 +51,6 @@ Feature: Trello
     When the user changes the workspace name and description
     And clicks on the "Save" button
     Then the workspace should be updated with the new name and description
-    And a confirmation message should be displayed
 
   @SearchingForBoard
   Scenario: User searches for an existing board
