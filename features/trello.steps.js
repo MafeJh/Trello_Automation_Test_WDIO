@@ -12,7 +12,7 @@ Given('the user is on the Trello sign-in page', async () => {
   headerPage = pages("header");
   boardPage = pages("board");
 
-  await browser.maximizeWindow();
+  //await browser.maximizeWindow();
   await browser.deleteCookies();
   await landingPage.open();
 });
@@ -77,21 +77,23 @@ Then('the new list should be added to the board', async () => {
   await boardPage.verifyNewBoardIsDisplayed('Bootcamp list');
 });
 
-// // Scenario: User adds a new card to a list
+// Scenario: User adds a new card to a list
 Given('the user is viewing a list on a board', async () => {
   await boardPage.isAddACardButtonPresent();
 });
 When('the user clicks on the "Add a card" option under the list', async () => {
   await boardPage.clickOnNewCardAction();
+  await browser.pause(500);
 });
 When('enters card titles and hits "Enter"', async () => {
   for (const cardName of ['Bootcamp card 3', 'Bootcamp card 1', 'Bootcamp card 2']) {
+    await browser.pause(500);
     await boardPage.typeBoardCardName(cardName);
     await browser.pause(500);
   }
 });
 Then('the new card should appear in the list', async () => {
-  // TODO: Verify elements
+  await boardPage.allCardsArePresentWithCorrectText('Bootcamp card 3', 'Bootcamp card 1', 'Bootcamp card 2');
 });
 
 // // Scenario: User filters cards on a board

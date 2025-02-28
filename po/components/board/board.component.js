@@ -93,6 +93,19 @@ class BoardComponent extends BaseComponent {
   get addACardButton(){
     return $('li[data-list-id="67c0b27906689d7078fce0bc"] button[data-testid="list-add-card-button"]')
   }
+
+  get firstCard() {
+      return this.rootEl.$('li:nth-of-type(1) a[data-testid="card-name"]'); 
+  }
+
+  get secondCard() {
+    return this.rootEl.$('li:nth-of-type(2) a[data-testid="card-name"]');
+  }
+
+  get thirdCard() {
+    return this.rootEl.$('li:nth-of-type(3) a[data-testid="card-name"]');
+  }
+
 }
 
 module.exports = BoardComponent;

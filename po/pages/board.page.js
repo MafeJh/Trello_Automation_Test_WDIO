@@ -135,6 +135,33 @@ class BoardPage extends BasePage {
   async isAddACardButtonPresent() {
     return await this.board.addACardButton.isDisplayed();
   }
+
+  async firstCardIsPresentAndHaveText(expectedText) {
+    await this.board.firstCard.waitForDisplayed({ timeout: 5000 });
+    await browser.pause(1000);  
+    await expect(this.board.firstCard).toHaveText(expectedText);
+}
+
+async secondCardIsPresentAndHaveText(expectedText) {
+    await this.board.secondCard.waitForDisplayed({ timeout: 5000 });
+    await browser.pause(1000);
+    await expect(this.board.secondCard).toHaveText(expectedText);
+}
+
+async thirdCardIsPresentAndHaveText(expectedText) {
+    await this.board.thirdCard.waitForDisplayed({ timeout: 5000 });
+    await browser.pause(1000);
+    await expect(this.board.thirdCard).toHaveText(expectedText);
+}
+
+
+async allCardsArePresentWithCorrectText(cardName1, cardName2,cardName3) {
+  await this.firstCardIsPresentAndHaveText(cardName1);
+  await this.secondCardIsPresentAndHaveText(cardName2);
+  await this.thirdCardIsPresentAndHaveText(cardName3);
+}
+
+
   
 
 
