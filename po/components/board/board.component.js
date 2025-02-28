@@ -106,6 +106,8 @@ class BoardComponent extends BaseComponent {
     return this.rootEl.$('li:nth-of-type(3) a[data-testid="card-name"]');
   }
 
+  
+
 }
 
 module.exports = BoardComponent;

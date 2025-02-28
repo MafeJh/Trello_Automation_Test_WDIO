@@ -1,10 +1,12 @@
 const BasePage = require("./base.page");
 const BoardComponent = require("../components/board/board.component");
+const WorkSpaceComponent = require("../components/common/workspace.component");
 
 class BoardPage extends BasePage {
   constructor() {
     super("/es");
     this.board = new BoardComponent();
+    this.workSpace = new WorkSpaceComponent();
   }
 
   async waitForBoardPage() {
@@ -159,6 +161,14 @@ async allCardsArePresentWithCorrectText(cardName1, cardName2,cardName3) {
   await this.firstCardIsPresentAndHaveText(cardName1);
   await this.secondCardIsPresentAndHaveText(cardName2);
   await this.thirdCardIsPresentAndHaveText(cardName3);
+}
+
+  async openWorkSpace() { 
+    await this.workSpace.workSpaceSettings.waitForDisplayed({ timeout: 5000 });
+    await this.workSpace.workSpaceSettings.click();
+
+    await this.workSpace.workSpaceSettingsPopover.waitForDisplayed({ timeout: 5000 });
+    await this.workSpace.workSpaceSettingsPopover.click();
 }
 
 

@@ -4,6 +4,7 @@ const SignInPage = require("./sign-in.page");
 const ProfileAndVisibilityPage = require("./profile-and-visibility.page");
 const HeaderPage = require("./header.page");
 const BoardPage = require("./board.page");
+const WorkspacePage = require("./workspace.page");
 /**
  *
  * @param {*} page {'Home'}
@@ -19,6 +20,7 @@ function pages(page) {
     profileAndVisibility: new ProfileAndVisibilityPage(),
     header: new HeaderPage(),
     board: new BoardPage(),
+    workspace: new WorkspacePage()
   };
   return items[page];
 }
