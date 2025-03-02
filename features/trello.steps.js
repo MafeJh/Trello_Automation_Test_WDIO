@@ -149,20 +149,18 @@ Then(
   }
 );
 
-// // Scenario: User searches for an existing board
-// // Given('the user is on the Trello dashboard', async () => {
-// //   // IS THE SAME GIVEN
+// Scenario: User searches for an existing board
+Given('from the Trello dashboard', async () => {
+  await headerPage.clickOnHomeButton();
+});
+When('the user types the board name in the search bar', async () => {
+  await headerPage.typeBoardsName();
+});
+When('presses the "Enter" key', async () => {
+  // TODO:
+});
+Then('the board matching the search criteria should be displayed in the results', async () => {
+  await boardPage.validateEndpointBoardsTitle();
+  await boardPage.ensureBoardIsOpen("Bootcamp");
 
-// // });
-// When('the user types the board name in the search bar', async () => {
-//   await headerPage.typeBoardsName();
-// });
-// When('presses the "Enter" key', async () => {
-//   // TODO:
-// });
-// Then('the board matching the search criteria should be displayed in the results', async () => {
-//   // TODO:
-//   // await boardPage.validateEndpointBoardsTitle();
-//   // await boardPage.ensureBoardIsOpen("Bootcamp");
-
-// });
+});

@@ -14,7 +14,7 @@ class HeaderComponent extends BaseComponent {
   }
 
   get searchInput() { 
-    return this.rootEl.$("input[data-test-id='search-dialog-input']");
+    return $("input[data-test-id='search-dialog-input']");
   }
 
   get homeButton() {

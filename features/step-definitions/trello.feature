@@ -54,7 +54,7 @@ Feature: Trello
 
   @SearchingForBoard
   Scenario: User searches for an existing board
-    Given the user is on the Trello dashboard
+    Given from the Trello dashboard
     When the user types the board name in the search bar
     And presses the "Enter" key
     Then the board matching the search criteria should be displayed in the results
