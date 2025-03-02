@@ -56,6 +56,7 @@ class HeaderPage extends BasePage {
   }
 
   async typeBoardsName(){
+    await this.header.searchInput.click();
     await this.header.searchInput.setValue("Bootcamp");
   }
 }

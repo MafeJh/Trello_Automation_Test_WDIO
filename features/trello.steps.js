@@ -130,7 +130,7 @@ Then("the new card should appear in the list", async () => {
 //   // TODO:
 // });
 
-// Scenario: User edits the workspace name and description
+//Scenario: User edits the workspace name and description
 Given("the user is on the workspace settings page", async () => {
   await boardPage.openWorkSpace();
   await browser.pause(500);
@@ -150,12 +150,11 @@ Then(
 );
 
 // // Scenario: User searches for an existing board
-// Given('the user is on the Trello dashboard', async () => {
-//   // TODO:
-//   await headerPage.clickOnHomeButton();
-// });
+// // Given('the user is on the Trello dashboard', async () => {
+// //   // IS THE SAME GIVEN
+
+// // });
 // When('the user types the board name in the search bar', async () => {
-//   // TODO:
 //   await headerPage.typeBoardsName();
 // });
 // When('presses the "Enter" key', async () => {

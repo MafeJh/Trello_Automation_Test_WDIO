@@ -8,6 +8,7 @@ class BoardsPage extends BasePage {
   }
 
   async validateEmail() {
+    await this.boards.accountButton.waitForDisplayed({timeout: 20000});
     const expectedEmail = "mafejh274@gmail.com";
     await this.boards.accountButton.click();
     const emailText = await this.boards.emailElement.getText();

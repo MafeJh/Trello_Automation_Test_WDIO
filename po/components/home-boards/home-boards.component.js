@@ -18,7 +18,7 @@ class HomeBoardsComponent extends BaseComponent {
   }
 
   get searchInput() {
-    return this.rootEl.$("[data-test-id='search-dialog-input']");
+    return $("[data-test-id='search-dialog-input']");
   }
 }
 

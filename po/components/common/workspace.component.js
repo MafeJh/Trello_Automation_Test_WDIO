@@ -10,7 +10,7 @@ class WorkSpaceComponent extends BaseComponent {
   }
 
   get workSpaceSettings() {
-    return $('[data-testid="admin-settings-dropdown-button"] span.see8N96uJ7JSJZ');
+    return $('[data-testid="admin-settings-dropdown-button"]');
   }
 
   get workSpaceSettingsPopover() {

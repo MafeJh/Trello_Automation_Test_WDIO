@@ -10,7 +10,7 @@ class BoardPage extends BasePage {
   }
 
   async waitForBoardPage() {
-    await this.board.boardTitle.waitForDisplayed({ timeout: 10000 });
+    await this.board.boardTitle.waitForDisplayed({ timeout: 20000 });
   }
 
   async ensureBoardIsOpen(expectedTitle) {
