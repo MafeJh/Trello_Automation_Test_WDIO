@@ -1,4 +1,4 @@
-const BaseComponent = require("../common/base.component");
+import BaseComponent from "../common/base.component";
 
 class BoardComponent extends BaseComponent {
   constructor() {
@@ -30,11 +30,15 @@ class BoardComponent extends BaseComponent {
   }
 
   get boardListInput() {
-    return this.boardCanvas.$('form textarea[data-testid="list-name-textarea"]');
+    return this.boardCanvas.$(
+      'form textarea[data-testid="list-name-textarea"]'
+    );
   }
 
   get newBoardList() {
-    return this.boardCanvas.$(`#board li[data-testid="list-wrapper"]:nth-child(4)`);
+    return this.boardCanvas.$(
+      `#board li[data-testid="list-wrapper"]:nth-child(4)`
+    );
   }
 
   get boardListMenuBtn() {
@@ -47,7 +51,7 @@ class BoardComponent extends BaseComponent {
     );
   }
 
-  optionToOrderByBtn(option ) {
+  optionToOrderByBtn(option) {
     return $(
       `.atlaskit-portal-container section[data-testid="list-actions-popover"] ul > li:nth-child(${option}) a`
     );
@@ -59,7 +63,9 @@ class BoardComponent extends BaseComponent {
   }
 
   get listCardInput() {
-    return this.newBoardList.$('textarea[data-testid="list-card-composer-textarea"]');
+    return this.newBoardList.$(
+      'textarea[data-testid="list-card-composer-textarea"]'
+    );
   }
 
   // Board Menu
@@ -78,9 +84,7 @@ class BoardComponent extends BaseComponent {
   }
 
   get deleteBoardBtn() {
-    return $(
-      'button[data-testid="close-board-delete-board-button"]'
-    );
+    return $('button[data-testid="close-board-delete-board-button"]');
   }
 
   get confirmDeleteBoardBtn() {
@@ -89,13 +93,14 @@ class BoardComponent extends BaseComponent {
     );
   }
 
-
-  get addACardButton(){
-    return $('li[data-list-id="67c0b27906689d7078fce0bc"] button[data-testid="list-add-card-button"]')
+  get addACardButton() {
+    return $(
+      'li[data-list-id="67c0b27906689d7078fce0bc"] button[data-testid="list-add-card-button"]'
+    );
   }
 
   get firstCard() {
-      return this.rootEl.$('li:nth-of-type(1) a[data-testid="card-name"]'); 
+    return this.rootEl.$('li:nth-of-type(1) a[data-testid="card-name"]');
   }
 
   get secondCard() {
@@ -105,9 +110,6 @@ class BoardComponent extends BaseComponent {
   get thirdCard() {
     return this.rootEl.$('li:nth-of-type(3) a[data-testid="card-name"]');
   }
-
-  
-
 }
 
-module.exports = BoardComponent;
+export default BoardComponent;

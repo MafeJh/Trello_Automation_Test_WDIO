@@ -1,4 +1,4 @@
-const BaseComponent = require("../common/base.component");
+import BaseComponent from "../common/base.component";
 
 class HeaderComponent extends BaseComponent {
   constructor() {
@@ -13,14 +13,13 @@ class HeaderComponent extends BaseComponent {
     return this.rootEl.$("button[data-testid='header-create-menu-button']");
   }
 
-  get searchInput() { 
+  get searchInput() {
     return $("input[data-test-id='search-dialog-input']");
   }
 
   get homeButton() {
     return this.rootEl.$("a[aria-label='Volver al inicio']");
   }
-
 }
 
-module.exports = HeaderComponent;
+export default HeaderComponent;

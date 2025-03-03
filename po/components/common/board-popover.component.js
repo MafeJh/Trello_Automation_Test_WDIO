@@ -1,4 +1,4 @@
-const BaseComponent = require("./base.component");
+import BaseComponent from "./base.component";
 
 class BoardPopoverComponent extends BaseComponent {
   constructor() {
@@ -20,7 +20,6 @@ class BoardPopoverComponent extends BaseComponent {
   get createButton() {
     return this.rootEl.$("button[data-testid='create-board-submit-button']");
   }
-
 }
 
-module.exports = BoardPopoverComponent;
+export default BoardPopoverComponent;

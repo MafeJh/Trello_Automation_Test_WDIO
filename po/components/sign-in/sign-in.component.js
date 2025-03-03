@@ -1,4 +1,4 @@
-const BaseComponent = require("../common/base.component");
+import BaseComponent from "../common/base.component";
 
 class LogInComponent extends BaseComponent {
   constructor() {
@@ -20,7 +20,6 @@ class LogInComponent extends BaseComponent {
   get logInButton() {
     return this.rootEl.$("#login-submit");
   }
-
 }
 
-module.exports = LogInComponent;
+export default LogInComponent;

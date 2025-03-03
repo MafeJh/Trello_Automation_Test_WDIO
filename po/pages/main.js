@@ -1,10 +1,10 @@
-const LandingPage = require("./landing.page");
-const HomeBoardsPage = require("./home-boards.page");
-const SignInPage = require("./sign-in.page");
-const ProfileAndVisibilityPage = require("./profile-and-visibility.page");
-const HeaderPage = require("./header.page");
-const BoardPage = require("./board.page");
-const WorkspacePage = require("./workspace.page");
+import LandingPage from "./landing.page";
+import HomeBoardsPage from "./home-boards.page";
+import SignInPage from "./sign-in.page";
+import ProfileAndVisibilityPage from "./profile-and-visibility.page";
+import HeaderPage from "./header.page";
+import BoardPage from "./board.page";
+import WorkspacePage from "./workspace.page";
 /**
  *
  * @param {*} page {'Home'}
@@ -12,7 +12,7 @@ const WorkspacePage = require("./workspace.page");
  */
 // 'pages' function receive a page argument to return the instance of HomePage
 // HomePage has access to all the elements in the form (selector of those elements)
-function pages(page) {
+export default function pages(page) {
   const items = {
     landing: new LandingPage(),
     homeBoards: new HomeBoardsPage(),
@@ -20,9 +20,7 @@ function pages(page) {
     profileAndVisibility: new ProfileAndVisibilityPage(),
     header: new HeaderPage(),
     board: new BoardPage(),
-    workspace: new WorkspacePage()
+    workspace: new WorkspacePage(),
   };
   return items[page];
 }
-
-module.exports = { pages };

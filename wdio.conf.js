@@ -1,3 +1,5 @@
+import chai from "chai";
+
 const browser = (process.env.BROWSER || "chrome").trim();
 const retry = process.env.RETRY || 0;
 const maxInstances = process.env.MAX_INSTANCES || 1;
@@ -21,16 +23,15 @@ const FIREFOX_CONFIG = {
 
 const FIREFOX_HEADLESS_CONFIG = {
   ...FIREFOX_CONFIG,
-  'moz:firefoxOptions': {
-    args: ['-headless']
-  }
+  "moz:firefoxOptions": {
+    args: ["-headless"],
+  },
 };
 
 const SAFARI_CONFIG = {
   browserName: "safari",
   acceptInsecureCerts: true,
 };
-
 
 const CAPABILITIES = {
   all: [CHROME_CONFIG, FIREFOX_CONFIG, SAFARI_CONFIG],
@@ -42,10 +43,10 @@ const CAPABILITIES = {
   safari: [SAFARI_CONFIG],
 };
 
-exports.config = {
+export const config = {
   runner: "local",
 
-  specs: ['./features/**/*.feature'],
+  specs: ["./features/**/*.feature"],
 
   exclude: [
     // 'path/to/excluded/files'
@@ -99,15 +100,26 @@ exports.config = {
 
   reporters: ["spec"],
 
-  services: ['chromedriver', 'geckodriver'],
+  services: ["chromedriver", "geckodriver"],
 
-  framework: 'cucumber',
+  framework: "cucumber",
 
   cucumberOpts: {
-    require: ['./features/**/*.steps.js'],
+    require: ["./features/**/*.steps.js"],
     retry,
     timeout: 60000,
     ignoreUndefinedDefinitions: true,
-    tags: ''
+    tags: "",
+  },
+
+  before: async () => {
+    // Obtener el expect de WDIO actual
+    const wdioExpect = global.expect;
+    // Modificar el expect, assert y should por los de Chai
+    global.expect = chai.expect; // De WDIO expect a Chai expect
+    global.assert = chai.assert;
+    global.should = chai.should();
+    // Asigna el expect de WDIO a una variable global por si es necesario utilizarla para otra cosa
+    global.wdioExpect = wdioExpect;
   },
 };

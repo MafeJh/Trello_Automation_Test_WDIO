@@ -1,5 +1,5 @@
-const BasePage = require("./base.page");
-const LogInComponent = require("../components/sign-in/sign-in.component");
+import BasePage from "./base.page";
+import LogInComponent from "../components/sign-in/sign-in.component";
 
 class LogInPage extends BasePage {
   constructor() {
@@ -32,4 +32,4 @@ class LogInPage extends BasePage {
   }
 }
 
-module.exports = LogInPage;
+export default LogInPage;

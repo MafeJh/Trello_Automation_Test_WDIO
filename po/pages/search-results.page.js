@@ -1,5 +1,5 @@
-const BasePage = require("./base.page");
-const SearchResultsComponent = require("../components/search-results/search-results.component");
+import BasePage from "./base.page";
+import SearchResultsComponent from "../components/search-results/search-results.component";
 
 class SearchResultsPage extends BasePage {
   constructor() {
@@ -17,4 +17,4 @@ class SearchResultsPage extends BasePage {
   }
 }
 
-module.exports = SearchResultsPage;
+export default SearchResultsPage;

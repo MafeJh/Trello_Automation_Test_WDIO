@@ -1,4 +1,4 @@
-const BaseComponent = require("../common/base.component");
+import BaseComponent from "../common/base.component";
 
 class SearchResultsComponent extends BaseComponent {
   constructor() {
@@ -12,4 +12,4 @@ class SearchResultsComponent extends BaseComponent {
 
 }
 
-module.exports = SearchResultsComponent;
+export default SearchResultsComponent;

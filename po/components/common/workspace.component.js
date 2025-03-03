@@ -1,4 +1,4 @@
-const BaseComponent = require("../common/base.component");
+import BaseComponent from "../common/base.component";
 
 class WorkSpaceComponent extends BaseComponent {
   constructor() {
@@ -17,31 +17,29 @@ class WorkSpaceComponent extends BaseComponent {
     return $('a[data-testid="popover-settings-button"] span.BmRHtH7FIX0jcL');
   }
 
-  
   get editWorkSpace() {
     return this.rootEl.$('span[data-testid="EditIcon"]');
   }
 
-  get name(){
+  get name() {
     return this.rootEl.$('input[data-testid="workspace-display-name"]');
   }
 
-  get description(){
+  get description() {
     return this.rootEl.$('textarea[id="desc"]');
   }
 
-  get saveButton(){
+  get saveButton() {
     return this.rootEl.$('button[type="submit"]');
   }
 
-  get workSpaceName(){
-    return this.rootEl.$('h2.SiP6d2d_8FAAkC');
+  get workSpaceName() {
+    return this.rootEl.$("h2.SiP6d2d_8FAAkC");
   }
 
-  get workSpaceDescription(){
-    return this.rootEl.$('div.ak-renderer-document p');
+  get workSpaceDescription() {
+    return this.rootEl.$("div.ak-renderer-document p");
   }
-
 }
 
-module.exports = WorkSpaceComponent;
+export default WorkSpaceComponent;

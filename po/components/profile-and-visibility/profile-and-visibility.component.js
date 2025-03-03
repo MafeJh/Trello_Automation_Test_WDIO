@@ -1,4 +1,4 @@
-const BaseComponent = require("../common/base.component");
+import BaseComponent from "../common/base.component";
 
 class ProfileAndVisibilityComponent extends BaseComponent {
   constructor() {
@@ -9,11 +9,11 @@ class ProfileAndVisibilityComponent extends BaseComponent {
     return this.rootEl.$("#username");
   }
 
-  get biographyInput(){
+  get biographyInput() {
     return this.rootEl.$("#bio");
   }
 
-  get saveButton(){
+  get saveButton() {
     return this.rootEl.$("button[type='submit']");
   }
 
@@ -23,8 +23,7 @@ class ProfileAndVisibilityComponent extends BaseComponent {
 
   get alertSaved() {
     return $("div.YEctMXs9uZbttS > span.QMKgZFIlTLiEJN");
+  }
 }
 
-}
-
-module.exports = ProfileAndVisibilityComponent;
+export default ProfileAndVisibilityComponent;

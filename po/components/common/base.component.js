@@ -12,4 +12,4 @@ class BaseComponent {
   }
 }
 
-module.exports = BaseComponent;
+export default BaseComponent;

@@ -1,4 +1,4 @@
-const { pages } = require("./../../po/index");
+import { pages } from "./../../po/index";
 
 describe("Navigating in trello web page", () => {
   let landingPage = null;

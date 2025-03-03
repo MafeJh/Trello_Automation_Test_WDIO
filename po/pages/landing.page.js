@@ -1,5 +1,5 @@
-const BasePage = require("./base.page");
-const LandingComponent = require("../components/landing/landing.component");
+import BasePage from "./base.page";
+import LandingComponent from "../components/landing/landing.component";
 
 class LandingPage extends BasePage {
   constructor() {
@@ -10,7 +10,6 @@ class LandingPage extends BasePage {
   async clickOnSingInButton() {
     await this.landing.singInButton.click();
   }
-
 }
 
-module.exports = LandingPage;
+export default LandingPage;

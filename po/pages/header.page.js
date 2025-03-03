@@ -1,6 +1,6 @@
-const BasePage = require("./base.page");
-const HeaderComponent = require("../components/common/header.component");
-const BoardPopoverComponent = require("../components/common/board-popover.component");
+import BasePage from "./base.page";
+import HeaderComponent from "../components/common/header.component";
+import BoardPopoverComponent from "../components/common/board-popover.component";
 
 class HeaderPage extends BasePage {
   constructor() {
@@ -20,7 +20,10 @@ class HeaderPage extends BasePage {
   }
 
   async verifyCreateMenuIsDisplayed() {
-    await this.boardPopover.rootEl.waitForDisplayed({ timeout: 10000, withinViewport: true });
+    await this.boardPopover.rootEl.waitForDisplayed({
+      timeout: 10000,
+      withinViewport: true,
+    });
   }
 
   async selectBackground() {
@@ -28,17 +31,26 @@ class HeaderPage extends BasePage {
   }
 
   async typeBoardName(boardName) {
-    await this.boardPopover.titleInput.waitForEnabled({ timeout: 10000, withinViewport: true });
+    await this.boardPopover.titleInput.waitForEnabled({
+      timeout: 10000,
+      withinViewport: true,
+    });
     await this.boardPopover.titleInput.setValue(boardName);
   }
 
   async clickOnCreateButton() {
-    await this.boardPopover.createButton.waitForEnabled({ timeout: 10000, withinViewport: true });
+    await this.boardPopover.createButton.waitForEnabled({
+      timeout: 10000,
+      withinViewport: true,
+    });
     await this.boardPopover.createButton.click();
   }
 
   async goToHomeBoards() {
-    await this.header.homeBoardLink.waitForDisplayed({ timeout: 10000, withinViewport: true });
+    await this.header.homeBoardLink.waitForDisplayed({
+      timeout: 10000,
+      withinViewport: true,
+    });
     await this.header.homeBoardLink.click();
   }
 
@@ -51,15 +63,18 @@ class HeaderPage extends BasePage {
     await this.clickOnCreateButton();
   }
 
-  async clickOnHomeButton(){
+  async clickOnHomeButton() {
     await this.header.homeButton.click();
   }
 
-  async typeBoardsName(){
-    await this.header.searchInput.waitForDisplayed({ timeout: 10000, withinViewport: true });
+  async typeBoardsName() {
+    await this.header.searchInput.waitForDisplayed({
+      timeout: 10000,
+      withinViewport: true,
+    });
     await this.header.searchInput.click();
     await this.header.searchInput.setValue("Bootcamp");
   }
 }
 
-module.exports = HeaderPage;
+export default HeaderPage;
