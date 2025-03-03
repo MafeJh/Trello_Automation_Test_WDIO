@@ -59,7 +59,7 @@ class BoardComponent extends BaseComponent {
 
   // Board card
   get addCardActionBtn() {
-    return this.newBoardList.$('button[data-testid="list-add-card-button"]');
+    return this.newBoardList.$('li:nth-child(4) button[data-testid="list-add-card-button"]');
   }
 
   get listCardInput() {

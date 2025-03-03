@@ -22,7 +22,9 @@ export default class BoardPage extends BasePage {
     const actualTitle = await this.board.boardTitle.getText();
     expect(actualTitle).to.match(new RegExp(expectedTitle));
     if (actualTitle !== expectedTitle) {
-      console.log(`El usuario no está en el tablero ${expectedTitle}. Redirigiendo...`);
+      console.log(
+        `El usuario no está en el tablero ${expectedTitle}. Redirigiendo...`
+      );
       await this.openBoardFromDashboard(expectedTitle);
     }
   }
@@ -31,13 +33,13 @@ export default class BoardPage extends BasePage {
     await browser.waitUntil(
       async () => (await browser.getUrl()).includes("/bootcamp"),
       {
-        timeout: 10000, 
+        timeout: 10000,
         timeoutMsg: "La URL no cambió a la esperada con '/bootcamp'",
       }
     );
 
     const url = await browser.getUrl();
-    console.log("Final URL:", url); 
+    console.log("Final URL:", url);
 
     // Validaciones con los 3 métodos de Chai
     expect(url).to.include("/bootcamp");
@@ -54,47 +56,98 @@ export default class BoardPage extends BasePage {
     await this.board.boardListInput.waitForDisplayed({ timeout: 10000 });
     await this.board.boardListInput.click();
     await this.board.boardListInput.setValue(boardName);
-    await browser.keys('Enter');
+    await browser.keys("Enter");
   }
 
   async verifyNewBoardIsDisplayed(boardName) {
-    await browser.waitUntil(async () => {
+    await browser.waitUntil(
+      async () => {
         return await this.board.newBoardList.isDisplayed();
-    }, {
+      },
+      {
         timeout: 10000,
-        timeoutMsg: "El nuevo tablero no se mostró en el tiempo esperado"
-    });
+        timeoutMsg: "El nuevo tablero no se mostró en el tiempo esperado",
+      }
+    );
 
     // Usando expect
     expect(await this.board.newBoardList.isDisplayed()).to.be.true;
     expect(await this.board.newBoardList.getText()).to.include(boardName);
 
     // Usando assert
-    assert.isTrue(await this.board.newBoardList.isDisplayed(), "El nuevo tablero no está visible");
-    assert.include(await this.board.newBoardList.getText(), boardName, "El nombre del tablero no coincide");
+    assert.isTrue(
+      await this.board.newBoardList.isDisplayed(),
+      "El nuevo tablero no está visible"
+    );
+    assert.include(
+      await this.board.newBoardList.getText(),
+      boardName,
+      "El nombre del tablero no coincide"
+    );
 
     // Usando should
     (await this.board.newBoardList.isDisplayed()).should.be.true;
     (await this.board.newBoardList.getText()).should.include(boardName);
-}
-
+  }
 
   async firstCardIsPresentAndHaveText(expectedText) {
     await this.board.firstCard.waitForDisplayed({ timeout: 5000 });
     await browser.pause(1000);
-    expect(await this.board.firstCard.getText()).to.equal(expectedText);
+
+    const actualText = await this.board.firstCard.getText();
+
+    // Usando expect
+    expect(actualText).to.equal(expectedText);
+
+    // Usando assert
+    assert.strictEqual(
+      actualText,
+      expectedText,
+      "El texto de la primera tarjeta no coincide"
+    );
+
+    // Usando should
+    actualText.should.equal(expectedText);
   }
 
   async secondCardIsPresentAndHaveText(expectedText) {
     await this.board.secondCard.waitForDisplayed({ timeout: 5000 });
     await browser.pause(1000);
-    expect(await this.board.secondCard.getText()).to.equal(expectedText);
+
+    const actualText = await this.board.secondCard.getText();
+
+    // Usando expect
+    expect(actualText).to.equal(expectedText);
+
+    // Usando assert
+    assert.strictEqual(
+      actualText,
+      expectedText,
+      "El texto de la segunda tarjeta no coincide"
+    );
+
+    // Usando should
+    actualText.should.equal(expectedText);
   }
 
   async thirdCardIsPresentAndHaveText(expectedText) {
     await this.board.thirdCard.waitForDisplayed({ timeout: 5000 });
     await browser.pause(1000);
-    expect(await this.board.thirdCard.getText()).to.equal(expectedText);
+
+    const actualText = await this.board.thirdCard.getText();
+
+    // Usando expect
+    expect(actualText).to.equal(expectedText);
+
+    // Usando assert
+    assert.strictEqual(
+      actualText,
+      expectedText,
+      "El texto de la tercera tarjeta no coincide"
+    );
+
+    // Usando should
+    actualText.should.equal(expectedText);
   }
 
   async allCardsArePresentWithCorrectText(cardName1, cardName2, cardName3) {
@@ -107,7 +160,39 @@ export default class BoardPage extends BasePage {
     await this.workSpace.workSpaceSettings.waitForDisplayed({ timeout: 5000 });
     await this.workSpace.workSpaceSettings.click();
 
-    await this.workSpace.workSpaceSettingsPopover.waitForDisplayed({ timeout: 5000 });
+    await this.workSpace.workSpaceSettingsPopover.waitForDisplayed({
+      timeout: 5000,
+    });
     await this.workSpace.workSpaceSettingsPopover.click();
   }
+
+  async clickOnNewCardAction() {
+    await this.board.addCardActionBtn.waitForDisplayed({ timeout: 10000 });
+    await this.board.addCardActionBtn.click();
+  }
+
+  async isAddACardButtonPresent() {
+    await this.board.addCardActionBtn.waitForDisplayed({ timeout: 10000 });
+
+    const isDisplayed = await this.board.addCardActionBtn.isDisplayed();
+    isDisplayed.should.be.true; // Validación con should
+
+    assert.isTrue(isDisplayed, "El botón 'Add a card' no está presente."); // Validación con assert
+
+    expect(isDisplayed).to.be.true; // Validación con expect
+}
+async typeBoardCardName(cardName) {
+  await this.board.listCardInput.waitForDisplayed({ timeout: 10000 });
+  await this.board.listCardInput.setValue(cardName);
+  await browser.keys('Enter');
+}
+
+async createCardOnList(cardNames) {
+  await this.clickOnNewCardAction();
+  for (const cardName of cardNames) {
+    await this.typeBoardCardName(cardName);
+    await browser.pause(1000);
+  }
+}
+
 }
