@@ -131,24 +131,24 @@ Then("the new card should appear in the list", async () => {
 // //   // TODO:
 // // });
 
-// //Scenario: User edits the workspace name and description
-// Given("the user is on the workspace settings page", async () => {
-//   await boardPage.openWorkSpace();
-//   await browser.pause(500);
-//   await workspacePage.clickOnEditWorkSpace();
-// });
-// When("the user changes the workspace name and description", async () => {
-//   await workspacePage.changeNameAndDescription();
-// });
-// When('clicks on the "Save" button', async () => {
-//   await workspacePage.saveChanges();
-// });
-// Then(
-//   "the workspace should be updated with the new name and description",
-//   async () => {
-//     await workspacePage.verifyNameAndDescription();
-//   }
-// );
+//Scenario: User edits the workspace name and description
+Given("the user is on the workspace settings page", async () => {
+  await boardPage.openWorkSpace();
+  await browser.pause(500);
+  await workspacePage.clickOnEditWorkSpace();
+});
+When("the user changes the workspace name and description", async () => {
+  await workspacePage.changeNameAndDescription();
+});
+When('clicks on the "Save" button', async () => {
+  await workspacePage.saveChanges();
+});
+Then(
+  "the workspace should be updated with the new name and description",
+  async () => {
+    await workspacePage.verifyNameAndDescription();
+  }
+);
 
 // // Scenario: User searches for an existing board
 // Given("from the Trello dashboard", async () => {

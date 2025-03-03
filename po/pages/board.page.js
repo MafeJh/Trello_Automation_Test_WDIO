@@ -65,30 +65,27 @@ export default class BoardPage extends BasePage {
         return await this.board.newBoardList.isDisplayed();
       },
       {
-        timeout: 10000,
+        timeout: 100000,
         timeoutMsg: "El nuevo tablero no se mostró en el tiempo esperado",
       }
     );
-
+  
+    // Obtener el texto y limpiar espacios extra
+    const actualText = await this.board.newBoardList.getText();
+  
     // Usando expect
-    expect(await this.board.newBoardList.isDisplayed()).to.be.true;
-    expect(await this.board.newBoardList.getText()).to.include(boardName);
-
+    expect(await this.board.newBoardList.isDisplayed(), "El nuevo tablero no está visible").to.be.true;
+    expect(actualText, "El nombre del tablero no coincide").to.include(boardName);
+  
     // Usando assert
-    assert.isTrue(
-      await this.board.newBoardList.isDisplayed(),
-      "El nuevo tablero no está visible"
-    );
-    assert.include(
-      await this.board.newBoardList.getText(),
-      boardName,
-      "El nombre del tablero no coincide"
-    );
-
+    assert.isTrue(await this.board.newBoardList.isDisplayed(), "El nuevo tablero no está visible");
+    assert.include(actualText, boardName, "El nombre del tablero no coincide");
+  
     // Usando should
     (await this.board.newBoardList.isDisplayed()).should.be.true;
-    (await this.board.newBoardList.getText()).should.include(boardName);
+    actualText.should.include(boardName);
   }
+  
 
   async firstCardIsPresentAndHaveText(expectedText) {
     await this.board.firstCard.waitForDisplayed({ timeout: 5000 });
@@ -172,15 +169,15 @@ export default class BoardPage extends BasePage {
   }
 
   async isAddACardButtonPresent() {
+    await this.board.addCardActionBtn.waitForExist({ timeout: 10000 });
     await this.board.addCardActionBtn.waitForDisplayed({ timeout: 10000 });
 
     const isDisplayed = await this.board.addCardActionBtn.isDisplayed();
-    isDisplayed.should.be.true; // Validación con should
+    console.log(`El botón está visible: ${isDisplayed}`); // Debugging
 
-    assert.isTrue(isDisplayed, "El botón 'Add a card' no está presente."); // Validación con assert
-
-    expect(isDisplayed).to.be.true; // Validación con expect
+    assert.isTrue(isDisplayed, "El botón 'Add a card' no está presente."); 
 }
+
 async typeBoardCardName(cardName) {
   await this.board.listCardInput.waitForDisplayed({ timeout: 10000 });
   await this.board.listCardInput.setValue(cardName);

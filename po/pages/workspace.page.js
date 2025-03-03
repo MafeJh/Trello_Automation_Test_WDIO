@@ -25,12 +25,11 @@ class WorkspacePage extends BasePage {
   async verifyNameAndDescription() {
     const name = await this.workspace.workSpaceName.getText();
     const description = await this.workspace.workSpaceDescription.getText();
-
-    await expect(name).toMatch("Mafe's workspace");
-    await expect(description).toMatch(
-      "This space is for learning about test automation with JavaScript."
-    );
+  
+    expect(name).to.match(/Mafe's workspace/);
+    expect(description).to.match(/This space is for learning about test automation with JavaScript./);
   }
+  
 }
 
 export default WorkspacePage;
