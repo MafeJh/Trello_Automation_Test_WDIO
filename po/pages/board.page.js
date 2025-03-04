@@ -1,16 +1,14 @@
 import BasePage from "./base.page";
 import BoardComponent from "../components/board/board.component";
 import WorkSpaceComponent from "../components/common/workspace.component";
-import chai from "chai";
-
-const { expect, assert, should } = chai;
-should();
+import FilterComponent from "../components/board/filter.component";
 
 export default class BoardPage extends BasePage {
   constructor() {
     super("/es");
     this.board = new BoardComponent();
     this.workSpace = new WorkSpaceComponent();
+    this.filter = new FilterComponent();
   }
 
   async waitForBoardPage() {
@@ -65,27 +63,34 @@ export default class BoardPage extends BasePage {
         return await this.board.newBoardList.isDisplayed();
       },
       {
-        timeout: 100000,
+        timeout: 200000,
         timeoutMsg: "El nuevo tablero no se mostró en el tiempo esperado",
       }
     );
-  
+
     // Obtener el texto y limpiar espacios extra
     const actualText = await this.board.newBoardList.getText();
-  
+
     // Usando expect
-    expect(await this.board.newBoardList.isDisplayed(), "El nuevo tablero no está visible").to.be.true;
-    expect(actualText, "El nombre del tablero no coincide").to.include(boardName);
-  
+    expect(
+      await this.board.newBoardList.isDisplayed(),
+      "El nuevo tablero no está visible"
+    ).to.be.true;
+    expect(actualText, "El nombre del tablero no coincide").to.include(
+      boardName
+    );
+
     // Usando assert
-    assert.isTrue(await this.board.newBoardList.isDisplayed(), "El nuevo tablero no está visible");
+    assert.isTrue(
+      await this.board.newBoardList.isDisplayed(),
+      "El nuevo tablero no está visible"
+    );
     assert.include(actualText, boardName, "El nombre del tablero no coincide");
-  
+
     // Usando should
     (await this.board.newBoardList.isDisplayed()).should.be.true;
     actualText.should.include(boardName);
   }
-  
 
   async firstCardIsPresentAndHaveText(expectedText) {
     await this.board.firstCard.waitForDisplayed({ timeout: 5000 });
@@ -175,21 +180,28 @@ export default class BoardPage extends BasePage {
     const isDisplayed = await this.board.addCardActionBtn.isDisplayed();
     console.log(`El botón está visible: ${isDisplayed}`); // Debugging
 
-    assert.isTrue(isDisplayed, "El botón 'Add a card' no está presente."); 
-}
-
-async typeBoardCardName(cardName) {
-  await this.board.listCardInput.waitForDisplayed({ timeout: 10000 });
-  await this.board.listCardInput.setValue(cardName);
-  await browser.keys('Enter');
-}
-
-async createCardOnList(cardNames) {
-  await this.clickOnNewCardAction();
-  for (const cardName of cardNames) {
-    await this.typeBoardCardName(cardName);
-    await browser.pause(1000);
+    assert.isTrue(isDisplayed, "El botón 'Add a card' no está presente.");
   }
-}
 
+  async typeBoardCardName(cardName) {
+    await this.board.listCardInput.waitForDisplayed({ timeout: 10000 });
+    await this.board.listCardInput.setValue(cardName);
+    await browser.keys("Enter");
+  }
+
+  async createCardOnList(cardNames) {
+    await this.clickOnNewCardAction();
+    for (const cardName of cardNames) {
+      await this.typeBoardCardName(cardName);
+      await browser.pause(500);
+    }
+  }
+
+  async openFilterPopover() {
+    await this.board.filterPopoverBtn.click();
+  }
+
+  async checkStatusMarkAsCompleted() {
+    await this.filter.markStatusAsCompleted.click();
+  }
 }

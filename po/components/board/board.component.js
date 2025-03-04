@@ -99,6 +99,7 @@ class BoardComponent extends BaseComponent {
     );
   }
 
+  // TODO: Refactor this to make it more reusable.
   get firstCard() {
     return this.rootEl.$('li:nth-of-type(1) a[data-testid="card-name"]');
   }
@@ -109,6 +110,10 @@ class BoardComponent extends BaseComponent {
 
   get thirdCard() {
     return this.rootEl.$('li:nth-of-type(3) a[data-testid="card-name"]');
+  }
+
+  get filterPopoverBtn() {
+    return this.rootEl.$('[data-testid="filter-popover-button"]');
   }
 }
 

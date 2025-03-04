@@ -39,10 +39,13 @@ class WorkspacePage extends BasePage {
   }
 
   async openBootcampCard() {
+    await this.workspace.bootcampCardLink.waitForDisplayed({
+      timeout: 10000,
+      withinViewport: true,
+    });
     await this.workspace.bootcampCardLink.click();
   }
 
-  
 }
 
 export default WorkspacePage;
