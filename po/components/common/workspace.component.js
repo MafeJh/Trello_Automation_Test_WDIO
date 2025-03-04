@@ -40,6 +40,14 @@ class WorkSpaceComponent extends BaseComponent {
   get workSpaceDescription() {
     return this.rootEl.$("div.ak-renderer-document p");
   }
+
+  get searchInput() {
+    return this.rootEl.$("input#search");
+  }
+
+  get bootcampCardLink() {
+    return this.rootEl.$("main > section > ul > li:nth-child(2) a");
+  }
 }
 
 export default WorkSpaceComponent;

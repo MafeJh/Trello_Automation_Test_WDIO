@@ -29,6 +29,19 @@ class WorkspacePage extends BasePage {
     expect(name).to.match(/Mafe's workspace/);
     expect(description).to.match(/This space is for learning about test automation with JavaScript./);
   }
+
+  async typeBoardsName(boardsName) {
+    await this.workspace.searchInput.waitForDisplayed({
+      timeout: 10000,
+      withinViewport: true,
+    });
+    await this.workspace.searchInput.setValue(boardsName);
+  }
+
+  async openBootcampCard() {
+    await this.workspace.bootcampCardLink.click();
+  }
+
   
 }
 
