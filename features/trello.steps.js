@@ -114,22 +114,25 @@ Then("the new card should appear in the list", async () => {
   );
 });
 
-// // // Scenario: User filters cards on a board
-// // Given('the user is on an open board with multiple cards', async () => {
-// //   await boardPage.ensureBoardIsOpen('Bootcamp');
-// // });
-// // When('the user clicks on the "Filter" button', async () => {
-// //   // TODO:
-// // });
-// // When('enters a keyword or selects a label in the filter options', async () => {
-// //   await boardPage.filterCreatedCardsBy(3);// Alphabetically: 3
-// // });
-// // Then('only the cards matching the filter criteria should be displayed', async () => {
-// //   // TODO:
-// // });
-// // Then('non-matching cards should be hidden', async () => {
-// //   // TODO:
-// // });
+// Scenario: User filters cards on a board
+Given("the user is on an open board with multiple cards", async () => {
+  await boardPage.ensureBoardIsOpen("Bootcamp");
+});
+When('the user clicks on the "Filter" button', async () => {
+  // TODO:
+});
+When("enters a keyword or selects a label in the filter options", async () => {
+  await boardPage.filterCreatedCardsBy(3); // Alphabetically: 3
+});
+Then(
+  "only the cards matching the filter criteria should be displayed",
+  async () => {
+    // TODO:
+  }
+);
+Then("non-matching cards should be hidden", async () => {
+  // TODO:
+});
 
 //Scenario: User edits the workspace name and description
 Given("the user is on the workspace settings page", async () => {
@@ -150,20 +153,22 @@ Then(
   }
 );
 
-// // Scenario: User searches for an existing board
-// Given("from the Trello dashboard", async () => {
-//   await headerPage.clickOnHomeButton();
-// });
-// When("the user types the board name in the search bar", async () => {
-//   await headerPage.typeBoardsName();
-// });
-// When('presses the "Enter" key', async () => {
-//   // TODO:
-// });
-// Then(
-//   "the board matching the search criteria should be displayed in the results",
-//   async () => {
-//     await boardPage.validateEndpointBoardsTitle();
-//     await boardPage.ensureBoardIsOpen("Bootcamp");
-//   }
-// );
+// Scenario: User searches for an existing board
+Given("from the Trello dashboard", async () => {
+  await headerPage.clickOnHomeButton();
+  await homeBoardsPage.goToBoards();
+});
+When("the user types the board name in the search bar", async () => {
+  await workspacePage.typeBoardsName("Bootcamp");
+});
+When('presses the "Enter" key', async () => {
+  await browser.keys("Enter");
+  await workspacePage.openBootcampCard();
+});
+Then(
+  "the board matching the search criteria should be displayed in the results",
+  async () => {
+    await boardPage.validateEndpointBoardsTitle();
+    await boardPage.ensureBoardIsOpen("Bootcamp");
+  }
+);

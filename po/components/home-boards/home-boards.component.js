@@ -22,6 +22,10 @@ class HomeBoardsComponent extends BaseComponent {
   get searchInput() {
     return $("[data-test-id='search-dialog-input']");
   }
+
+  get boardsBtn() {
+    return $("#content div.boards-page-board-section-header-options > a:nth-child(1)");
+  }
 }
 
 export default HomeBoardsComponent;
