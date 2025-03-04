@@ -101,7 +101,7 @@ When('enters card titles and hits "Enter"', async () => {
     "Bootcamp card 1",
     "Bootcamp card 2",
   ]) {
-    await browser.pause(500);
+    await browser.pause(900);
     await boardPage.typeBoardCardName(cardName);
     await browser.pause(500);
   }
@@ -119,22 +119,23 @@ Given("the user is on an open board with multiple cards", async () => {
   await boardPage.ensureBoardIsOpen("Bootcamp");
 });
 When('the user clicks on the "Filter" button', async () => {
-  // TODO: Click on filters button
   await boardPage.openFilterPopover();
 });
 When("enters a keyword or selects a label in the filter options", async () => {
-  // TODO: Click on mark as completed
-  await boardPage.openFilterPopover();
+  await boardPage.checkStatusMarkAsCompleted();
 });
 Then(
   "only the cards matching the filter criteria should be displayed",
   async () => {
-    // TODO: Verify cards are displayed
-    // click on the other status and...
+    await boardPage.validateFilterResult("markAsCompleted");
   }
 );
+When("enters a keyword or selects a label in the filter options as not completed", async () => {
+  await boardPage.checkStatusMarkAsNotCompleted();
+});
+
 Then("non-matching cards should be hidden", async () => {
-  // TODO: Verify cards are not displayed
+  await boardPage.validateFilterResult("markAsNotCompleted");
 });
 
 //Scenario: User edits the workspace name and description

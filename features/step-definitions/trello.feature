@@ -43,7 +43,8 @@ Feature: Trello
     When the user clicks on the "Filter" button
     And enters a keyword or selects a label in the filter options
     Then only the cards matching the filter criteria should be displayed
-    And non-matching cards should be hidden
+    When enters a keyword or selects a label in the filter options as not completed
+    Then non-matching cards should be hidden
     
   @EditUserWorkspace
   Scenario: User edits the workspace name and description

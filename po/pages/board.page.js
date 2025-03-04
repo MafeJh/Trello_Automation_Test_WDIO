@@ -184,7 +184,7 @@ export default class BoardPage extends BasePage {
   }
 
   async typeBoardCardName(cardName) {
-    await this.board.listCardInput.waitForDisplayed({ timeout: 10000 });
+    await this.board.listCardInput.waitForDisplayed({ timeout: 20000 });
     await this.board.listCardInput.setValue(cardName);
     await browser.keys("Enter");
   }
@@ -202,6 +202,32 @@ export default class BoardPage extends BasePage {
   }
 
   async checkStatusMarkAsCompleted() {
+    await this.filter.markStatusAsCompleted.waitForDisplayed({ timeout: 1000 });
     await this.filter.markStatusAsCompleted.click();
+  }
+
+  async checkStatusMarkAsNotCompleted() {
+    await this.filter.markStatusAsNotCompleted.waitForDisplayed({ timeout: 1000 });
+    await this.filter.markStatusAsNotCompleted.click();
+  }
+
+  async getTextFromQuantityOfMatchesMessage() {
+    await this.board.quantityOfMatchesMessage.waitForDisplayed({ timeout: 10000 });
+    return await this.board.quantityOfMatchesMessage.getText();
+  }
+
+  async validateFilterResult(status) {
+    const expectedCounts = {
+      markAsCompleted: 0,
+      markAsNotCompleted: 3
+    };
+
+    const actualMessage = await this.getTextFromQuantityOfMatchesMessage();
+    const expectedMessage = `Los filtros coinciden con ${expectedCounts[status]} tarjetas`;
+
+    // Validaciones con los tres métodos de Chai
+    expect(actualMessage).to.equal(expectedMessage);
+    assert.strictEqual(actualMessage, expectedMessage, "El mensaje de coincidencia no es el esperado");
+    actualMessage.should.equal(expectedMessage);
   }
 }

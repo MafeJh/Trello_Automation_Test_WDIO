@@ -115,6 +115,10 @@ class BoardComponent extends BaseComponent {
   get filterPopoverBtn() {
     return this.rootEl.$('[data-testid="filter-popover-button"]');
   }
+  
+    get quantityOfMatchesMessage() {
+    return $('ol#board li:nth-child(4) p');
+  }
 }
 
 export default BoardComponent;
