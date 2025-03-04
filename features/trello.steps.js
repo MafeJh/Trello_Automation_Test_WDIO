@@ -119,19 +119,22 @@ Given("the user is on an open board with multiple cards", async () => {
   await boardPage.ensureBoardIsOpen("Bootcamp");
 });
 When('the user clicks on the "Filter" button', async () => {
-  // TODO:
+  // TODO: Click on filters button
+  await boardPage.openFilterPopover();
 });
 When("enters a keyword or selects a label in the filter options", async () => {
-  await boardPage.filterCreatedCardsBy(3); // Alphabetically: 3
+  // TODO: Click on mark as completed
+  await boardPage.openFilterPopover();
 });
 Then(
   "only the cards matching the filter criteria should be displayed",
   async () => {
-    // TODO:
+    // TODO: Verify cards are displayed
+    // click on the other status and...
   }
 );
 Then("non-matching cards should be hidden", async () => {
-  // TODO:
+  // TODO: Verify cards are not displayed
 });
 
 //Scenario: User edits the workspace name and description
