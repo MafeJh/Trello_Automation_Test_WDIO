@@ -46,7 +46,7 @@ const CAPABILITIES = {
 export const config = {
   runner: "local",
 
-  specs: ["./features/**/*.feature"],
+  specs: ["../tests/step-definitions/*.feature"],
 
   exclude: [
     // 'path/to/excluded/files'
@@ -56,7 +56,7 @@ export const config = {
 
   capabilities: CAPABILITIES[browser],
   // Level of logging verbosity: trace | debug | info | warn | error | silent
-  logLevel: "info",
+  logLevel: "debug",
   //
   // Set specific log levels per logger
   // loggers:
@@ -105,7 +105,7 @@ export const config = {
   framework: "cucumber",
 
   cucumberOpts: {
-    require: ["./features/**/*.steps.js"],
+    require: ["../**/*.steps.js"],
     retry,
     timeout: 60000,
     ignoreUndefinedDefinitions: true,

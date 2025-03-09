@@ -11,15 +11,14 @@ export default class BoardPage extends BasePage {
     this.filter = new FilterComponent();
   }
 
-  async waitForBoardPage() {
-    await this.board.boardTitle.waitForDisplayed({ timeout: 20000 });
-  }
-
   async ensureBoardIsOpen(expectedTitle) {
-    await this.waitForBoardPage();
-    const actualTitle = await this.board.boardTitle.getText();
-    expect(actualTitle).to.match(new RegExp(expectedTitle));
-    if (actualTitle !== expectedTitle) {
+    await this.board.boardTitle.waitForDisplayed({ timeout: 20000 });
+
+    const currentTitle = await this.board.boardTitle.getText();
+
+    expect(currentTitle).to.match(new RegExp(expectedTitle));
+
+    if (currentTitle !== expectedTitle) {
       console.log(
         `El usuario no está en el tablero ${expectedTitle}. Redirigiendo...`
       );
@@ -37,9 +36,7 @@ export default class BoardPage extends BasePage {
     );
 
     const url = await browser.getUrl();
-    console.log("Final URL:", url);
 
-    // Validaciones con los 3 métodos de Chai
     expect(url).to.include("/bootcamp");
     assert.include(url, "/bootcamp", "La URL no contiene '/bootcamp'");
     url.should.include("/bootcamp");
@@ -58,20 +55,13 @@ export default class BoardPage extends BasePage {
   }
 
   async verifyNewBoardIsDisplayed(boardName) {
-    await browser.waitUntil(
-      async () => {
-        return await this.board.newBoardList.isDisplayed();
-      },
-      {
-        timeout: 200000,
-        timeoutMsg: "El nuevo tablero no se mostró en el tiempo esperado",
-      }
-    );
+    await this.board.newBoardList.waitForDisplayed({ 
+      timeout: 200000,
+      timeoutMsg: 'New board was not displayed', 
+    });
 
-    // Obtener el texto y limpiar espacios extra
     const actualText = await this.board.newBoardList.getText();
 
-    // Usando expect
     expect(
       await this.board.newBoardList.isDisplayed(),
       "El nuevo tablero no está visible"
@@ -80,82 +70,34 @@ export default class BoardPage extends BasePage {
       boardName
     );
 
-    // Usando assert
     assert.isTrue(
       await this.board.newBoardList.isDisplayed(),
       "El nuevo tablero no está visible"
     );
     assert.include(actualText, boardName, "El nombre del tablero no coincide");
 
-    // Usando should
-    (await this.board.newBoardList.isDisplayed()).should.be.true;
     actualText.should.include(boardName);
   }
 
-  async firstCardIsPresentAndHaveText(expectedText) {
-    await this.board.firstCard.waitForDisplayed({ timeout: 5000 });
-    await browser.pause(1000);
-
-    const actualText = await this.board.firstCard.getText();
-
-    // Usando expect
-    expect(actualText).to.equal(expectedText);
-
-    // Usando assert
-    assert.strictEqual(
-      actualText,
-      expectedText,
-      "El texto de la primera tarjeta no coincide"
-    );
-
-    // Usando should
-    actualText.should.equal(expectedText);
+  async validateEachCardIsPresentAndHaveText(cardNames) {
+    for (let position = 0; position < cardNames.length; position++) {
+      await this.isCardPresentAndHaveText(position + 1, cardNames[position]);
+    }
   }
 
-  async secondCardIsPresentAndHaveText(expectedText) {
-    await this.board.secondCard.waitForDisplayed({ timeout: 5000 });
+  async isCardPresentAndHaveText(position, expectedCardName) {
+    await this.board.cardElement(position).waitForDisplayed({ timeout: 5000 });
     await browser.pause(1000);
 
-    const actualText = await this.board.secondCard.getText();
+    const currentText = await this.board.cardElement(position).getText();
 
-    // Usando expect
-    expect(actualText).to.equal(expectedText);
-
-    // Usando assert
+    expect(currentText).to.equal(expectedCardName);
     assert.strictEqual(
-      actualText,
-      expectedText,
-      "El texto de la segunda tarjeta no coincide"
+      currentText,
+      expectedCardName,
+      `Text does match with the card in position ${position}`
     );
-
-    // Usando should
-    actualText.should.equal(expectedText);
-  }
-
-  async thirdCardIsPresentAndHaveText(expectedText) {
-    await this.board.thirdCard.waitForDisplayed({ timeout: 5000 });
-    await browser.pause(1000);
-
-    const actualText = await this.board.thirdCard.getText();
-
-    // Usando expect
-    expect(actualText).to.equal(expectedText);
-
-    // Usando assert
-    assert.strictEqual(
-      actualText,
-      expectedText,
-      "El texto de la tercera tarjeta no coincide"
-    );
-
-    // Usando should
-    actualText.should.equal(expectedText);
-  }
-
-  async allCardsArePresentWithCorrectText(cardName1, cardName2, cardName3) {
-    await this.firstCardIsPresentAndHaveText(cardName1);
-    await this.secondCardIsPresentAndHaveText(cardName2);
-    await this.thirdCardIsPresentAndHaveText(cardName3);
+    currentText.should.equal(expectedCardName);
   }
 
   async openWorkSpace() {
@@ -207,19 +149,23 @@ export default class BoardPage extends BasePage {
   }
 
   async checkStatusMarkAsNotCompleted() {
-    await this.filter.markStatusAsNotCompleted.waitForDisplayed({ timeout: 1000 });
+    await this.filter.markStatusAsNotCompleted.waitForDisplayed({
+      timeout: 1000,
+    });
     await this.filter.markStatusAsNotCompleted.click();
   }
 
   async getTextFromQuantityOfMatchesMessage() {
-    await this.board.quantityOfMatchesMessage.waitForDisplayed({ timeout: 10000 });
+    await this.board.quantityOfMatchesMessage.waitForDisplayed({
+      timeout: 10000,
+    });
     return await this.board.quantityOfMatchesMessage.getText();
   }
 
   async validateFilterResult(status) {
     const expectedCounts = {
       markAsCompleted: 0,
-      markAsNotCompleted: 3
+      markAsNotCompleted: 3,
     };
 
     const actualMessage = await this.getTextFromQuantityOfMatchesMessage();
@@ -227,7 +173,11 @@ export default class BoardPage extends BasePage {
 
     // Validaciones con los tres métodos de Chai
     expect(actualMessage).to.equal(expectedMessage);
-    assert.strictEqual(actualMessage, expectedMessage, "El mensaje de coincidencia no es el esperado");
+    assert.strictEqual(
+      actualMessage,
+      expectedMessage,
+      "El mensaje de coincidencia no es el esperado"
+    );
     actualMessage.should.equal(expectedMessage);
   }
 }

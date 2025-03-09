@@ -59,7 +59,9 @@ class BoardComponent extends BaseComponent {
 
   // Board card
   get addCardActionBtn() {
-    return this.newBoardList.$('li:nth-child(4) button[data-testid="list-add-card-button"]');
+    return this.newBoardList.$(
+      'li:nth-child(4) button[data-testid="list-add-card-button"]'
+    );
   }
 
   get listCardInput() {
@@ -99,25 +101,16 @@ class BoardComponent extends BaseComponent {
     );
   }
 
-  // TODO: Refactor this to make it more reusable.
-  get firstCard() {
-    return this.rootEl.$('li:nth-of-type(1) a[data-testid="card-name"]');
-  }
-
-  get secondCard() {
-    return this.rootEl.$('li:nth-of-type(2) a[data-testid="card-name"]');
-  }
-
-  get thirdCard() {
-    return this.rootEl.$('li:nth-of-type(3) a[data-testid="card-name"]');
+  cardElement(position) {
+    return this.rootEl.$(`li:nth-of-type(${position}) a[data-testid="card-name"]`);
   }
 
   get filterPopoverBtn() {
     return this.rootEl.$('[data-testid="filter-popover-button"]');
   }
-  
-    get quantityOfMatchesMessage() {
-    return $('ol#board li:nth-child(4) p');
+
+  get quantityOfMatchesMessage() {
+    return $("ol#board li:nth-child(4) p");
   }
 }
 

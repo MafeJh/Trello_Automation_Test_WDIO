@@ -25,9 +25,11 @@ class WorkspacePage extends BasePage {
   async verifyNameAndDescription() {
     const name = await this.workspace.workSpaceName.getText();
     const description = await this.workspace.workSpaceDescription.getText();
-  
+
     expect(name).to.match(/Mafe's workspace/);
-    expect(description).to.match(/This space is for learning about test automation with JavaScript./);
+    expect(description).to.match(
+      /This space is for learning about test automation with JavaScript./
+    );
   }
 
   async typeBoardsName(boardsName) {
@@ -38,14 +40,13 @@ class WorkspacePage extends BasePage {
     await this.workspace.searchInput.setValue(boardsName);
   }
 
-  async openBootcampCard() {
-    await this.workspace.bootcampCardLink.waitForDisplayed({
+  async openBoardCardLink() {
+    await this.workspace.boardCardLink.waitForDisplayed({
       timeout: 10000,
       withinViewport: true,
     });
-    await this.workspace.bootcampCardLink.click();
+    await this.workspace.boardCardLink.click();
   }
-
 }
 
 export default WorkspacePage;

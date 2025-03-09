@@ -1,5 +1,5 @@
 import { Given, When, Then } from "@wdio/cucumber-framework";
-import pages from "../po/pages/main";
+import pages from "../po/pages/index";
 
 let landingPage,
   signInPage,
@@ -8,6 +8,14 @@ let landingPage,
   headerPage,
   boardPage,
   workspacePage;
+
+const BOARD_NAME = "Bootcamp";
+const BOARD_LIST_NAME = `${BOARD_NAME} list`;
+const BOARD_CARD_NAMES = [
+  `${BOARD_NAME} card 3`,
+  `${BOARD_NAME} card 1`,
+  `${BOARD_NAME} card 2`,
+];
 
 // Scenario: User signs in with valid credentials
 Given("the user is on the Trello sign-in page", async () => {
@@ -62,7 +70,7 @@ When('the user clicks on the "Create new board" button', async () => {
 });
 When("enters a board name and selects a background color", async () => {
   await headerPage.selectBackground();
-  await headerPage.typeBoardName("Bootcamp");
+  await headerPage.typeBoardName(BOARD_NAME);
   await headerPage.clickOnCreateButton();
 });
 Then(
@@ -74,17 +82,17 @@ Then(
 
 // Scenario: User adds a new list to a board
 Given("the user is on an open board", async () => {
-  await boardPage.ensureBoardIsOpen("Bootcamp");
+  await boardPage.ensureBoardIsOpen(BOARD_NAME);
 });
 When('the user clicks on the "Add a list" button', async () => {
   await browser.pause(1000);
   await boardPage.clickOnNewBoardListAction();
 });
 When('enters a list name and hits "Enter"', async () => {
-  await boardPage.typeBoardListName("Bootcamp list");
+  await boardPage.typeBoardListName(BOARD_LIST_NAME);
 });
 Then("the new list should be added to the board", async () => {
-  await boardPage.verifyNewBoardIsDisplayed("Bootcamp list");
+  await boardPage.verifyNewBoardIsDisplayed(BOARD_LIST_NAME);
 });
 
 // Scenario: User adds a new card to a list
@@ -96,27 +104,19 @@ When('the user clicks on the "Add a card" option under the list', async () => {
   await browser.pause(500);
 });
 When('enters card titles and hits "Enter"', async () => {
-  for (const cardName of [
-    "Bootcamp card 3",
-    "Bootcamp card 1",
-    "Bootcamp card 2",
-  ]) {
+  for (const cardName of BOARD_CARD_NAMES) {
     await browser.pause(900);
     await boardPage.typeBoardCardName(cardName);
     await browser.pause(500);
   }
 });
 Then("the new card should appear in the list", async () => {
-  await boardPage.allCardsArePresentWithCorrectText(
-    "Bootcamp card 3",
-    "Bootcamp card 1",
-    "Bootcamp card 2"
-  );
+  await boardPage.validateEachCardIsPresentAndHaveText(BOARD_CARD_NAMES);
 });
 
 // Scenario: User filters cards on a board
 Given("the user is on an open board with multiple cards", async () => {
-  await boardPage.ensureBoardIsOpen("Bootcamp");
+  await boardPage.ensureBoardIsOpen(BOARD_NAME);
 });
 When('the user clicks on the "Filter" button', async () => {
   await boardPage.openFilterPopover();
@@ -130,9 +130,12 @@ Then(
     await boardPage.validateFilterResult("markAsCompleted");
   }
 );
-When("enters a keyword or selects a label in the filter options as not completed", async () => {
-  await boardPage.checkStatusMarkAsNotCompleted();
-});
+When(
+  "enters a keyword or selects a label in the filter options as not completed",
+  async () => {
+    await boardPage.checkStatusMarkAsNotCompleted();
+  }
+);
 
 Then("non-matching cards should be hidden", async () => {
   await boardPage.validateFilterResult("markAsNotCompleted");
@@ -163,16 +166,16 @@ Given("from the Trello dashboard", async () => {
   await homeBoardsPage.goToBoards();
 });
 When("the user types the board name in the search bar", async () => {
-  await workspacePage.typeBoardsName("Bootcamp");
+  await workspacePage.typeBoardsName(BOARD_NAME);
 });
 When('presses the "Enter" key', async () => {
   await browser.keys("Enter");
-  await workspacePage.openBootcampCard();
+  await workspacePage.openBoardCardLink();
 });
 Then(
   "the board matching the search criteria should be displayed in the results",
   async () => {
     await boardPage.validateEndpointBoardsTitle();
-    await boardPage.ensureBoardIsOpen("Bootcamp");
+    await boardPage.ensureBoardIsOpen(BOARD_NAME);
   }
 );

@@ -1,4 +1,4 @@
-import BaseComponent from "../common/base.component";
+import BaseComponent from "./base.component";
 
 class WorkSpaceComponent extends BaseComponent {
   constructor() {
@@ -45,7 +45,7 @@ class WorkSpaceComponent extends BaseComponent {
     return this.rootEl.$("input#search");
   }
 
-  get bootcampCardLink() {
+  get boardCardLink() {
     return this.rootEl.$("main > section > ul > li:nth-child(2) a");
   }
 }
