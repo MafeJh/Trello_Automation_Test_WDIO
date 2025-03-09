@@ -9,18 +9,16 @@ class HomeBoardsPage extends BasePage {
 
   async validateEmail() {
     await this.boards.accountButton.waitForDisplayed({ timeout: 20000 });
-    const expectedEmail = "mafejh274@gmail.com";
+    const expectedEmail = process.env.EMAIL;
+
     await this.boards.accountButton.click();
+
     const emailText = await this.boards.emailElement.getText();
+    const errorMessage = "Email does not match with the expected one";
 
-    // Usando expect
-    expect(emailText).to.equal(expectedEmail, "El email mostrado no es el esperado.");
-
-    // Usando assert
-    assert.strictEqual(emailText, expectedEmail, "El email mostrado no coincide.");
-
-    // Usando should
-    emailText.should.equal(expectedEmail, "El email mostrado debería coincidir.");
+    expect(emailText).to.equal(expectedEmail, errorMessage);
+    assert.strictEqual(emailText, expectedEmail, errorMessage);
+    emailText.should.equal(expectedEmail, errorMessage);
   }
 
   async clickOnProfileAndVisibility() {
@@ -29,15 +27,12 @@ class HomeBoardsPage extends BasePage {
 
   async validateHomeBoardsEndpoint() {
     const currentUrl = await browser.getUrl();
+    const errorMessage = "Board URL does not match with the expected one";
+    const matchingRegex = /\/mafejimenezh\/boards$/;
 
-    // Usando expect
-    expect(currentUrl).to.match(/\/mafejimenezh\/boards$/, "La URL del tablero no es la esperada.");
-
-    // Usando assert
-    assert.match(currentUrl, /\/mafejimenezh\/boards$/, "La URL del tablero no coincide.");
-
-    // Usando should
-    currentUrl.should.match(/\/mafejimenezh\/boards$/, "La URL del tablero debería coincidir.");
+    expect(currentUrl).to.match(matchingRegex, errorMessage);
+    assert.match(currentUrl, matchingRegex, errorMessage);
+    currentUrl.should.match(matchingRegex, errorMessage);
   }
 
   async goToBoards() {

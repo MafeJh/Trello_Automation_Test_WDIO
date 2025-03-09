@@ -63,18 +63,6 @@ class HeaderPage extends BasePage {
     await this.clickOnCreateButton();
   }
 
-  async clickOnHomeButton() {
-    await this.header.homeButton.click();
-  }
-
-  async typeBoardsName() {
-    await this.header.searchInput.waitForDisplayed({
-      timeout: 10000,
-      withinViewport: true,
-    });
-    await this.header.searchInput.click();
-    await this.header.searchInput.setValue("Bootcamp");
-  }
 }
 
 export default HeaderPage;

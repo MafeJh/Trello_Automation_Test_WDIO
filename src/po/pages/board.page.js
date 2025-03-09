@@ -17,29 +17,24 @@ export default class BoardPage extends BasePage {
     const currentTitle = await this.board.boardTitle.getText();
 
     expect(currentTitle).to.match(new RegExp(expectedTitle));
-
-    if (currentTitle !== expectedTitle) {
-      console.log(
-        `El usuario no está en el tablero ${expectedTitle}. Redirigiendo...`
-      );
-      await this.openBoardFromDashboard(expectedTitle);
-    }
   }
 
-  async validateEndpointBoardsTitle() {
+  async validateEndpointBoardsTitle(boardName) {
+    const expectedURL = `/${boardName}`;
+
     await browser.waitUntil(
-      async () => (await browser.getUrl()).includes("/bootcamp"),
+      async () => (await browser.getUrl()).includes(expectedURL),
       {
         timeout: 10000,
-        timeoutMsg: "La URL no cambió a la esperada con '/bootcamp'",
+        timeoutMsg: `URL did not matched the expected '${expectedURL}'`,
       }
     );
+    
+    const currentURL = await browser.getUrl();
 
-    const url = await browser.getUrl();
-
-    expect(url).to.include("/bootcamp");
-    assert.include(url, "/bootcamp", "La URL no contiene '/bootcamp'");
-    url.should.include("/bootcamp");
+    expect(currentURL).to.include(expectedURL);
+    assert.include(currentURL, expectedURL);
+    currentURL.should.include(expectedURL);
   }
 
   async clickOnNewBoardListAction() {
@@ -55,27 +50,19 @@ export default class BoardPage extends BasePage {
   }
 
   async verifyNewBoardIsDisplayed(boardName) {
-    await this.board.newBoardList.waitForDisplayed({ 
+    await this.board.newBoardList.waitForDisplayed({
       timeout: 200000,
-      timeoutMsg: 'New board was not displayed', 
+      timeoutMsg: "New board was not displayed",
     });
 
+    expect(await this.board.newBoardList.isDisplayed()).to.be.true;
+    assert.isTrue(await this.board.newBoardList.isDisplayed());
+
     const actualText = await this.board.newBoardList.getText();
+    const boardDoesNotMatch = "Board name does not match";
 
-    expect(
-      await this.board.newBoardList.isDisplayed(),
-      "El nuevo tablero no está visible"
-    ).to.be.true;
-    expect(actualText, "El nombre del tablero no coincide").to.include(
-      boardName
-    );
-
-    assert.isTrue(
-      await this.board.newBoardList.isDisplayed(),
-      "El nuevo tablero no está visible"
-    );
-    assert.include(actualText, boardName, "El nombre del tablero no coincide");
-
+    expect(actualText, boardDoesNotMatch).to.include(boardName);
+    assert.include(actualText, boardName, boardDoesNotMatch);
     actualText.should.include(boardName);
   }
 
@@ -116,13 +103,11 @@ export default class BoardPage extends BasePage {
   }
 
   async isAddACardButtonPresent() {
-    await this.board.addCardActionBtn.waitForExist({ timeout: 10000 });
     await this.board.addCardActionBtn.waitForDisplayed({ timeout: 10000 });
 
     const isDisplayed = await this.board.addCardActionBtn.isDisplayed();
-    console.log(`El botón está visible: ${isDisplayed}`); // Debugging
 
-    assert.isTrue(isDisplayed, "El botón 'Add a card' no está presente.");
+    assert.isTrue(isDisplayed, "Button 'Añade una tarjeta' is not present.");
   }
 
   async typeBoardCardName(cardName) {
@@ -150,7 +135,7 @@ export default class BoardPage extends BasePage {
 
   async checkStatusMarkAsNotCompleted() {
     await this.filter.markStatusAsNotCompleted.waitForDisplayed({
-      timeout: 1000,
+      timeout: 10000,
     });
     await this.filter.markStatusAsNotCompleted.click();
   }
@@ -171,12 +156,11 @@ export default class BoardPage extends BasePage {
     const actualMessage = await this.getTextFromQuantityOfMatchesMessage();
     const expectedMessage = `Los filtros coinciden con ${expectedCounts[status]} tarjetas`;
 
-    // Validaciones con los tres métodos de Chai
     expect(actualMessage).to.equal(expectedMessage);
     assert.strictEqual(
       actualMessage,
       expectedMessage,
-      "El mensaje de coincidencia no es el esperado"
+      "Message does not match with the expected one"
     );
     actualMessage.should.equal(expectedMessage);
   }

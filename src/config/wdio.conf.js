@@ -46,7 +46,7 @@ const CAPABILITIES = {
 export const config = {
   runner: "local",
 
-  specs: ["../tests/step-definitions/*.feature"],
+  specs: ["../**/*.feature"],
 
   exclude: [
     // 'path/to/excluded/files'
@@ -56,7 +56,7 @@ export const config = {
 
   capabilities: CAPABILITIES[browser],
   // Level of logging verbosity: trace | debug | info | warn | error | silent
-  logLevel: "debug",
+  logLevel: "info",
   //
   // Set specific log levels per logger
   // loggers:
@@ -105,7 +105,7 @@ export const config = {
   framework: "cucumber",
 
   cucumberOpts: {
-    require: ["../**/*.steps.js"],
+    require: ["./**/*.step.js"],
     retry,
     timeout: 60000,
     ignoreUndefinedDefinitions: true,
@@ -113,13 +113,12 @@ export const config = {
   },
 
   before: async () => {
-    // Obtener el expect de WDIO actual
     const wdioExpect = global.expect;
-    // Modificar el expect, assert y should por los de Chai
-    global.expect = chai.expect; // De WDIO expect a Chai expect
+
+    global.expect = chai.expect;
     global.assert = chai.assert;
     global.should = chai.should();
-    // Asigna el expect de WDIO a una variable global por si es necesario utilizarla para otra cosa
+
     global.wdioExpect = wdioExpect;
   },
 };

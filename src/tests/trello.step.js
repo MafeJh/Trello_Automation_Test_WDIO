@@ -1,6 +1,7 @@
 import { Given, When, Then } from "@wdio/cucumber-framework";
-import pages from "../po/pages/index";
+import pages from "../po";
 
+// PAGES
 let landingPage,
   signInPage,
   homeBoardsPage,
@@ -9,13 +10,25 @@ let landingPage,
   boardPage,
   workspacePage;
 
+// TODO: Move texts to a JSON so it gets more organized
+const USERNAME = process.env.TRELLO_USERNAME || "";
+const EMAIL = process.env.EMAIL || "";
+const PASSWORD = process.env.PASSWORD || "";
 const BOARD_NAME = "Bootcamp";
 const BOARD_LIST_NAME = `${BOARD_NAME} list`;
+const WORKSPACE_NAME = "Mafe's workspace";
+const WORKSPACE_DESCRIPTION = '';
+const BIOGRAPHY_DESCRIPTION = "Hola! Bienvenido a mi trello de QA Automation";
 const BOARD_CARD_NAMES = [
   `${BOARD_NAME} card 3`,
   `${BOARD_NAME} card 1`,
   `${BOARD_NAME} card 2`,
 ];
+
+const CardStatus = Object.freeze({
+  MarkAsCompleted: "markAsCompleted",
+  MarkAsNotCompleted: "markAsNotCompleted",
+});
 
 // Scenario: User signs in with valid credentials
 Given("the user is on the Trello sign-in page", async () => {
@@ -33,7 +46,7 @@ Given("the user is on the Trello sign-in page", async () => {
 });
 When("the user enters a registered email and correct password", async () => {
   await landingPage.clickOnSingInButton();
-  await signInPage.singIn();
+  await signInPage.singIn(EMAIL, PASSWORD);
 });
 When('clicks on the "Sign In" button', async () => {
   await signInPage.clickOnLogInButton();
@@ -50,10 +63,10 @@ Given("the user is logged in and on their profile page", async () => {
   await homeBoardsPage.clickOnProfileAndVisibility();
 });
 When("the user edits their display name and bio", async () => {
-  await profileAndVisibility.updateProfile();
+  await profileAndVisibility.updateProfile(USERNAME, BIOGRAPHY_DESCRIPTION);
 });
 Then("the profile should be updated with the new information", async () => {
-  await profileAndVisibility.validateEndpointUsername();
+  await profileAndVisibility.validateEndpointUsername(USERNAME);
 });
 Then("a success message should be displayed", async () => {
   await profileAndVisibility.validateAlertSaved();
@@ -61,7 +74,7 @@ Then("a success message should be displayed", async () => {
 
 // Scenario: User creates a new board
 Given("the user is on the Trello dashboard", async () => {
-  await headerPage.clickOnHomeButton();
+  await headerPage.goToHomeBoards();
 });
 When('the user clicks on the "Create new board" button', async () => {
   await headerPage.openCreateBoardMenu();
@@ -76,7 +89,7 @@ When("enters a board name and selects a background color", async () => {
 Then(
   "a new board should be created and displayed on the dashboard",
   async () => {
-    await boardPage.validateEndpointBoardsTitle();
+    await boardPage.validateEndpointBoardsTitle(BOARD_NAME.toLowerCase());
   }
 );
 
@@ -127,7 +140,7 @@ When("enters a keyword or selects a label in the filter options", async () => {
 Then(
   "only the cards matching the filter criteria should be displayed",
   async () => {
-    await boardPage.validateFilterResult("markAsCompleted");
+    await boardPage.validateFilterResult(CardStatus.MarkAsCompleted);
   }
 );
 When(
@@ -138,7 +151,7 @@ When(
 );
 
 Then("non-matching cards should be hidden", async () => {
-  await boardPage.validateFilterResult("markAsNotCompleted");
+  await boardPage.validateFilterResult(CardStatus.MarkAsNotCompleted);
 });
 
 //Scenario: User edits the workspace name and description
@@ -148,7 +161,7 @@ Given("the user is on the workspace settings page", async () => {
   await workspacePage.clickOnEditWorkSpace();
 });
 When("the user changes the workspace name and description", async () => {
-  await workspacePage.changeNameAndDescription();
+  await workspacePage.changeNameAndDescription(WORKSPACE_NAME, WORKSPACE_DESCRIPTION);
 });
 When('clicks on the "Save" button', async () => {
   await workspacePage.saveChanges();
@@ -162,7 +175,7 @@ Then(
 
 // Scenario: User searches for an existing board
 Given("from the Trello dashboard", async () => {
-  await headerPage.clickOnHomeButton();
+  await headerPage.goToHomeBoards();
   await homeBoardsPage.goToBoards();
 });
 When("the user types the board name in the search bar", async () => {
@@ -175,7 +188,7 @@ When('presses the "Enter" key', async () => {
 Then(
   "the board matching the search criteria should be displayed in the results",
   async () => {
-    await boardPage.validateEndpointBoardsTitle();
+    await boardPage.validateEndpointBoardsTitle(BOARD_NAME.toLowerCase());
     await boardPage.ensureBoardIsOpen(BOARD_NAME);
   }
 );

@@ -11,11 +11,9 @@ class WorkspacePage extends BasePage {
     await this.workspace.editWorkSpace.click();
   }
 
-  async changeNameAndDescription() {
-    await this.workspace.name.setValue("Mafe's workspace");
-    await this.workspace.description.setValue(
-      "This space is for learning about test automation with JavaScript."
-    );
+  async changeNameAndDescription(name, description) {
+    await this.workspace.name.setValue(name);
+    await this.workspace.description.setValue(description);
   }
 
   async saveChanges() {

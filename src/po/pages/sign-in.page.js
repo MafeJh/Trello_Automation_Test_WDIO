@@ -7,28 +7,28 @@ class LogInPage extends BasePage {
     this.logIn = new LogInComponent();
   }
 
-  async typeInEmailInput() {
+  async typeInEmailInput(email) {
     await this.logIn.emailInput.waitForDisplayed();
-    await this.logIn.emailInput.setValue("mafejh274@gmail.com");
+    await this.logIn.emailInput.setValue(email);
   }
 
   async clickOnContinueButton() {
     await this.logIn.continueButton.click();
   }
 
-  async typeInPasswordInput() {
+  async typeInPasswordInput(password) {
     await this.logIn.passwordInput.waitForDisplayed();
-    await this.logIn.passwordInput.setValue("ContraseñaEPAM");
+    await this.logIn.passwordInput.setValue(password);
   }
 
   async clickOnLogInButton() {
     await this.logIn.logInButton.click();
   }
 
-  async singIn() {
-    await this.typeInEmailInput();
+  async singIn(email, password) {
+    await this.typeInEmailInput(email);
     await this.clickOnContinueButton();
-    await this.typeInPasswordInput();
+    await this.typeInPasswordInput(password);
   }
 }
 
