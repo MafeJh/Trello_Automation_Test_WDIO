@@ -14,10 +14,11 @@
     "test:all:headless": "set BROWSER=all_headless && npx wdio run src/config/wdio.conf.js",
     "test:retry": "set RETRY=3 && npx wdio run src/config/wdio.conf.js",
     "test:parallel": "set MAX_INSTANCES=3 && npx wdio run src/config/wdio.conf.js",
-    "test:full": "set BROWSER=chrome && set RETRY=3 && set MAX_INSTANCES=3 && npx wdio run src/config/wdio.conf.js"
+    "test:full": "set BROWSER=chrome && set RETRY=3 && set MAX_INSTANCES=3 && npx wdio run src/config/wdio.conf.js",
+    "test:api": "node src/api-tests/api-tests.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "Mafe Jiménez",
   "license": "ISC",
   "type": "module",
   "devDependencies": {
@@ -29,6 +30,7 @@
     "chai": "^4.0.2",
     "chai-webdriverio": "^1.0.0",
     "chromedriver": "^133.0.2",
+    "newman": "^6.2.1",
     "wdio-chromedriver-service": "^8.1.1",
     "wdio-geckodriver-service": "^5.0.2"
   }
