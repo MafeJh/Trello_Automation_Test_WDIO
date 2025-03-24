@@ -16,7 +16,7 @@ function loadEnv(filePath) {
 }
 
 // Load environment variables from .env file
-loadEnv('./.env');
+if (!process.env.API_KEY || !process.env.API_TOKEN) loadEnv('./.env');
 
 // Replace placeholders with actual environment variables
 environment.values.forEach(variable => {
