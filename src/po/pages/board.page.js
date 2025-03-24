@@ -55,20 +55,15 @@ export default class BoardPage extends BasePage {
       timeoutMsg: "New board was not displayed",
     });
 
-    expect(await this.board.newBoardList.isDisplayed()).to.be.true;
     assert.isTrue(await this.board.newBoardList.isDisplayed());
 
     const actualText = await this.board.newBoardList.getText();
-    const boardDoesNotMatch = "Board name does not match";
 
-    expect(actualText, boardDoesNotMatch).to.include(boardName);
-    assert.include(actualText, boardName, boardDoesNotMatch);
     actualText.should.include(boardName);
   }
 
   async validateEachCardIsPresentAndHaveText(cardNames) {
-    for (let position = 0; position < cardNames.length; position++) {
-      await this.isCardPresentAndHaveText(position + 1, cardNames[position]);
+    for (let position = 0; position < cardNames.length; position++) { await this.isCardPresentAndHaveText(position + 1, cardNames[position]);
     }
   }
 

@@ -4,18 +4,26 @@ const browser = (process.env.BROWSER || "chrome").trim();
 const retry = process.env.RETRY || 0;
 const maxInstances = process.env.MAX_INSTANCES || 1;
 
+// Language setting
+const LANGUAGE = 'es'; // Set the desired language here
+
+// Chrome Configuration
 const CHROME_CONFIG = {
   browserName: "chrome",
   acceptInsecureCerts: true,
+  "goog:chromeOptions": {
+    args: [`--lang=${LANGUAGE}`], // Set language to Spanish
+  },
 };
 
 const CHROME_HEADLESS_CONFIG = {
   ...CHROME_CONFIG,
   "goog:chromeOptions": {
-    args: ["--headless", "--disable-gpu"],
+    args: ["--headless", "--disable-gpu", `--lang=${LANGUAGE}`], // Set language to Spanish
   },
 };
 
+// Firefox Configuration
 const FIREFOX_CONFIG = {
   browserName: "firefox",
   acceptInsecureCerts: true,
@@ -25,12 +33,17 @@ const FIREFOX_HEADLESS_CONFIG = {
   ...FIREFOX_CONFIG,
   "moz:firefoxOptions": {
     args: ["-headless"],
+    prefs: {
+      'intl.accept_languages': LANGUAGE, // Set language to Spanish
+    },
   },
 };
 
+// Safari Configuration
 const SAFARI_CONFIG = {
   browserName: "safari",
   acceptInsecureCerts: true,
+  // Note: Language settings for Safari cannot be set directly through WebDriver
 };
 
 const CAPABILITIES = {

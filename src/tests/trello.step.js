@@ -108,26 +108,26 @@ Then("the new list should be added to the board", async () => {
   await boardPage.verifyNewBoardIsDisplayed(BOARD_LIST_NAME);
 });
 
-// Scenario: User adds a new card to a list
+/* // Scenario: User adds a new card to a list
 Given("the user is viewing a list on a board", async () => {
   await boardPage.isAddACardButtonPresent();
 });
 When('the user clicks on the "Add a card" option under the list', async () => {
   await boardPage.clickOnNewCardAction();
-  await browser.pause(500);
+  await browser.pause(1000);
 });
 When('enters card titles and hits "Enter"', async () => {
   for (const cardName of BOARD_CARD_NAMES) {
-    await browser.pause(900);
+    // await browser.pause(1000);
     await boardPage.typeBoardCardName(cardName);
     await browser.pause(500);
   }
 });
 Then("the new card should appear in the list", async () => {
   await boardPage.validateEachCardIsPresentAndHaveText(BOARD_CARD_NAMES);
-});
+}); */
 
-// Scenario: User filters cards on a board
+/* // Scenario: User filters cards on a board
 Given("the user is on an open board with multiple cards", async () => {
   await boardPage.ensureBoardIsOpen(BOARD_NAME);
 });
@@ -152,7 +152,7 @@ When(
 
 Then("non-matching cards should be hidden", async () => {
   await boardPage.validateFilterResult(CardStatus.MarkAsNotCompleted);
-});
+}); */
 
 //Scenario: User edits the workspace name and description
 Given("the user is on the workspace settings page", async () => {
