@@ -1,8 +1,11 @@
 import chai from "chai";
+import { ReportAggregator, HtmlReporter } from 'wdio-html-nice-reporter';
 
 const browser = (process.env.BROWSER || "chrome").trim();
 const retry = process.env.RETRY || 0;
 const maxInstances = process.env.MAX_INSTANCES || 1;
+// Report Aggregator Instance
+let reportAggregator = null;
 
 // Language setting
 const LANGUAGE = 'es'; // Set the desired language here
@@ -56,6 +59,8 @@ const CAPABILITIES = {
   safari: [SAFARI_CONFIG],
 };
 
+CAPABILITIES[browser]
+
 export const config = {
   runner: "local",
 
@@ -69,7 +74,7 @@ export const config = {
 
   capabilities: CAPABILITIES[browser],
   // Level of logging verbosity: trace | debug | info | warn | error | silent
-  logLevel: "info",
+  logLevel: "error",
   //
   // Set specific log levels per logger
   // loggers:
@@ -111,7 +116,58 @@ export const config = {
   //
   // Delay in seconds between the spec file retry attempts
 
-  reporters: ["spec"],
+  reporters: [
+    [
+      "spec",
+      {
+        onlyFailures: false, // Muestra todos los logs, no solo los fallidos
+        addConsoleLogs: true, // Incluye los logs de console.log() en el reporte
+        showPreface: false, // Oculta el prefacio del reportero para hacer el reporte más limpio
+        sauceLabsSharableLinks: false, // No genera enlaces compartibles en SauceLabs
+        realtimeReporting: true, // Habilita la actualización en tiempo real del reporte
+        symbols: {
+          passed: "[PASS]", // Personaliza el prefijo de pruebas pasadas
+          failed: "[FAIL]", // Personaliza el prefijo de pruebas fallidas
+        },
+      },
+    ],
+    [
+      HtmlReporter,
+      {
+        debug: true,
+        outputDir: "./@reports/html-reports/", // Directorio donde se guardarán los reportes
+        filename: "report.html", // Nombre del archivo HTML generado
+        reportTitle: "HTML Report", // Título del reporte
+        linkScreenshots: true, // Habilita enlaces a capturas de pantalla en el reporte
+        showInBrowser: true, // Abre el reporte en el navegador después de la ejecución
+        collapseTests: false, // Muestra todas las pruebas expandidas en el reporte
+        useOnAfterCommandForScreenshot: false, // Desactiva capturas automáticas después de cada comando
+      }
+    ]
+  ],
+
+  onPrepare: function (config, capabilities) {
+    reportAggregator = new ReportAggregator({
+      outputDir: "./@reports/html-reports/",
+      filename: 'report.html',
+      reportTitle: 'HTML Report',
+      browserName: capabilities.browserName,
+      collapseTests: true,
+    });
+    reportAggregator.clean();
+  },
+  
+  onComplete: async function (exitCode, config, capabilities, results) {
+    if (reportAggregator) {
+      try {
+        await reportAggregator.createReport();
+      } catch (error) {
+        console.error('Error al generar el reporte:', error);
+      }
+    } else {
+      console.error('ReportAggregator no está inicializado.');
+    }
+  },
 
   services: ["chromedriver", "geckodriver"],
 
