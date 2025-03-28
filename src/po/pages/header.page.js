@@ -62,7 +62,6 @@ class HeaderPage extends BasePage {
     await this.typeBoardName(boardName);
     await this.clickOnCreateButton();
   }
-
 }
 
 export default HeaderPage;

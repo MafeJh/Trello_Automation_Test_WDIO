@@ -13,7 +13,7 @@ class ProfileAndVisibilityPage extends BasePage {
 
   async enterBiography(biographyDescription) {
     await this.profileAndVisibility.biographyInput.setValue(
-      biographyDescription
+      biographyDescription,
     );
   }
 

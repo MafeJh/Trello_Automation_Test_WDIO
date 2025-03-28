@@ -15,7 +15,7 @@ class HomeBoardsComponent extends BaseComponent {
 
   get profileAndVisibility() {
     return this.rootEl.$(
-      "a[data-testid='account-menu-profile']  span.BmRHtH7FIX0jcL"
+      "a[data-testid='account-menu-profile']  span.BmRHtH7FIX0jcL",
     );
   }
 
@@ -24,7 +24,9 @@ class HomeBoardsComponent extends BaseComponent {
   }
 
   get boardsBtn() {
-    return $("#content div.boards-page-board-section-header-options > a:nth-child(1)");
+    return $(
+      "#content div.boards-page-board-section-header-options > a:nth-child(1)",
+    );
   }
 }
 

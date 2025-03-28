@@ -6,13 +6,12 @@ class FilterComponent extends BaseComponent {
   }
 
   get markStatusAsCompleted() {
-    return $('div:nth-child(5) > ul > li:nth-child(1) > label');
+    return $("div:nth-child(5) > ul > li:nth-child(1) > label");
   }
 
   get markStatusAsNotCompleted() {
-    return $('div:nth-child(5) > ul > li:nth-child(2) > label');
+    return $("div:nth-child(5) > ul > li:nth-child(2) > label");
   }
-
 }
 
 export default FilterComponent;

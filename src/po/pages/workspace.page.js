@@ -26,7 +26,7 @@ class WorkspacePage extends BasePage {
 
     expect(name).to.match(/Mafe's workspace/);
     expect(description).to.match(
-      /This space is for learning about test automation with JavaScript./
+      /This space is for learning about test automation with JavaScript./,
     );
   }
 

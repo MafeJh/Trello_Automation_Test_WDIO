@@ -27,9 +27,9 @@ export default class BoardPage extends BasePage {
       {
         timeout: 10000,
         timeoutMsg: `URL did not matched the expected '${expectedURL}'`,
-      }
+      },
     );
-    
+
     const currentURL = await browser.getUrl();
 
     expect(currentURL).to.include(expectedURL);
@@ -63,7 +63,8 @@ export default class BoardPage extends BasePage {
   }
 
   async validateEachCardIsPresentAndHaveText(cardNames) {
-    for (let position = 0; position < cardNames.length; position++) { await this.isCardPresentAndHaveText(position + 1, cardNames[position]);
+    for (let position = 0; position < cardNames.length; position++) {
+      await this.isCardPresentAndHaveText(position + 1, cardNames[position]);
     }
   }
 
@@ -77,7 +78,7 @@ export default class BoardPage extends BasePage {
     assert.strictEqual(
       currentText,
       expectedCardName,
-      `Text does match with the card in position ${position}`
+      `Text does match with the card in position ${position}`,
     );
     currentText.should.equal(expectedCardName);
   }
@@ -155,7 +156,7 @@ export default class BoardPage extends BasePage {
     assert.strictEqual(
       actualMessage,
       expectedMessage,
-      "Message does not match with the expected one"
+      "Message does not match with the expected one",
     );
     actualMessage.should.equal(expectedMessage);
   }

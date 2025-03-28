@@ -1,5 +1,5 @@
 import chai from "chai";
-import { ReportAggregator, HtmlReporter } from 'wdio-html-nice-reporter';
+import { ReportAggregator, HtmlReporter } from "wdio-html-nice-reporter";
 
 const browser = (process.env.BROWSER || "chrome").trim();
 const retry = process.env.RETRY || 0;
@@ -8,7 +8,7 @@ const maxInstances = process.env.MAX_INSTANCES || 1;
 let reportAggregator = null;
 
 // Language setting
-const LANGUAGE = 'es'; // Set the desired language here
+const LANGUAGE = "es"; // Set the desired language here
 
 // Chrome Configuration
 const CHROME_CONFIG = {
@@ -37,7 +37,7 @@ const FIREFOX_HEADLESS_CONFIG = {
   "moz:firefoxOptions": {
     args: ["-headless"],
     prefs: {
-      'intl.accept_languages': LANGUAGE, // Set language to Spanish
+      "intl.accept_languages": LANGUAGE, // Set language to Spanish
     },
   },
 };
@@ -59,7 +59,7 @@ const CAPABILITIES = {
   safari: [SAFARI_CONFIG],
 };
 
-CAPABILITIES[browser]
+CAPABILITIES[browser];
 
 export const config = {
   runner: "local",
@@ -142,30 +142,30 @@ export const config = {
         showInBrowser: true, // Abre el reporte en el navegador después de la ejecución
         collapseTests: false, // Muestra todas las pruebas expandidas en el reporte
         useOnAfterCommandForScreenshot: false, // Desactiva capturas automáticas después de cada comando
-      }
-    ]
+      },
+    ],
   ],
 
   onPrepare: function (config, capabilities) {
     reportAggregator = new ReportAggregator({
       outputDir: "./@reports/html-reports/",
-      filename: 'report.html',
-      reportTitle: 'HTML Report',
+      filename: "report.html",
+      reportTitle: "HTML Report",
       browserName: capabilities.browserName,
       collapseTests: true,
     });
     reportAggregator.clean();
   },
-  
+
   onComplete: async function (exitCode, config, capabilities, results) {
     if (reportAggregator) {
       try {
         await reportAggregator.createReport();
       } catch (error) {
-        console.error('Error al generar el reporte:', error);
+        console.error("Error al generar el reporte:", error);
       }
     } else {
-      console.error('ReportAggregator no está inicializado.');
+      console.error("ReportAggregator no está inicializado.");
     }
   },
 

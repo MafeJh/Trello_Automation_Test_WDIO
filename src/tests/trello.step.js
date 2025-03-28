@@ -17,7 +17,7 @@ const PASSWORD = process.env.PASSWORD || "";
 const BOARD_NAME = "Bootcamp";
 const BOARD_LIST_NAME = `${BOARD_NAME} list`;
 const WORKSPACE_NAME = "Mafe's workspace";
-const WORKSPACE_DESCRIPTION = '';
+const WORKSPACE_DESCRIPTION = "";
 const BIOGRAPHY_DESCRIPTION = "Hola! Bienvenido a mi trello de QA Automation";
 const BOARD_CARD_NAMES = [
   `${BOARD_NAME} card 3`,
@@ -90,7 +90,7 @@ Then(
   "a new board should be created and displayed on the dashboard",
   async () => {
     await boardPage.validateEndpointBoardsTitle(BOARD_NAME.toLowerCase());
-  }
+  },
 );
 
 // Scenario: User adds a new list to a board
@@ -161,7 +161,10 @@ Given("the user is on the workspace settings page", async () => {
   await workspacePage.clickOnEditWorkSpace();
 });
 When("the user changes the workspace name and description", async () => {
-  await workspacePage.changeNameAndDescription(WORKSPACE_NAME, WORKSPACE_DESCRIPTION);
+  await workspacePage.changeNameAndDescription(
+    WORKSPACE_NAME,
+    WORKSPACE_DESCRIPTION,
+  );
 });
 When('clicks on the "Save" button', async () => {
   await workspacePage.saveChanges();
@@ -170,7 +173,7 @@ Then(
   "the workspace should be updated with the new name and description",
   async () => {
     await workspacePage.verifyNameAndDescription();
-  }
+  },
 );
 
 // Scenario: User searches for an existing board
@@ -190,5 +193,5 @@ Then(
   async () => {
     await boardPage.validateEndpointBoardsTitle(BOARD_NAME.toLowerCase());
     await boardPage.ensureBoardIsOpen(BOARD_NAME);
-  }
+  },
 );
