@@ -157,7 +157,7 @@ export const config = {
     reportAggregator.clean();
   },
 
-  onComplete: async function (exitCode, config, capabilities, results) {
+  onComplete: async function () {// exitCode, config, capabilities, results
     if (reportAggregator) {
       try {
         await reportAggregator.createReport();

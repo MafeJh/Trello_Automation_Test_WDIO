@@ -19,13 +19,13 @@ const BOARD_LIST_NAME = `${BOARD_NAME} list`;
 const WORKSPACE_NAME = "Mafe's workspace";
 const WORKSPACE_DESCRIPTION = "";
 const BIOGRAPHY_DESCRIPTION = "Hola! Bienvenido a mi trello de QA Automation";
-const BOARD_CARD_NAMES = [
+const _BOARD_CARD_NAMES = [
   `${BOARD_NAME} card 3`,
   `${BOARD_NAME} card 1`,
   `${BOARD_NAME} card 2`,
 ];
 
-const CardStatus = Object.freeze({
+const _CardStatus = Object.freeze({
   MarkAsCompleted: "markAsCompleted",
   MarkAsNotCompleted: "markAsNotCompleted",
 });
