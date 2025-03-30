@@ -23,8 +23,8 @@ class ProfileAndVisibilityPage extends BasePage {
 
   async validateEndpointUsername(username) {
     const currentUrl = await browser.getUrl();
-    const regex = new RegExp(`/${username}$`);
-    const errorMessage = `URL does not end in '/${username}'`;
+    const regex = new RegExp(`/${username}/profile$`);
+    const errorMessage = `URL does not end in '/${username}/profile'`;
 
     expect(currentUrl).to.match(regex, errorMessage);
     assert.match(currentUrl, regex, errorMessage);

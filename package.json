@@ -32,7 +32,7 @@
     "@wdio/spec-reporter": "^9.11.0",
     "chai": "^4.0.2",
     "chai-webdriverio": "^1.0.0",
-    "chromedriver": "^133.0.2",
+    "chromedriver": "~134.0.4",
     "eslint": "^9.23.0",
     "eslint-plugin-wdio": "^9.9.1",
     "globals": "^16.0.0",
