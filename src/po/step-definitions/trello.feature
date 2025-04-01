@@ -1,3 +1,4 @@
+@NavigatingInTrello
 Feature: Trello
 
   @SuccessfulSignIn
