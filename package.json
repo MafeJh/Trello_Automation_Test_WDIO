@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "npm run test:chrome",
+    "test:tag": "wdio src/config/wdio.conf.js --cucumberOpts.tagExpression",
     "test:chrome": "set BROWSER=chrome && npx wdio run ./src/config/wdio.conf.js",
     "test:chrome:headless": "set BROWSER=chrome_headless && npx wdio run src/config/wdio.conf.js",
     "test:firefox": "set BROWSER=firefox && npx wdio run src/config/wdio.conf.js",
