@@ -19,7 +19,7 @@ const BOARD_LIST_NAME = `${BOARD_NAME} list`;
 const WORKSPACE_NAME = "Mafe's workspace";
 const WORKSPACE_DESCRIPTION = "";
 const BIOGRAPHY_DESCRIPTION = "Hola! Bienvenido a mi trello de QA Automation";
-const _BOARD_CARD_NAMES = [
+const BOARD_CARD_NAMES = [
   `${BOARD_NAME} card 3`,
   `${BOARD_NAME} card 1`,
   `${BOARD_NAME} card 2`,
@@ -108,7 +108,7 @@ Then("the new list should be added to the board", async () => {
   await boardPage.verifyNewBoardIsDisplayed(BOARD_LIST_NAME);
 });
 
-/* // Scenario: User adds a new card to a list
+// Scenario: User adds a new card to a list
 Given("the user is viewing a list on a board", async () => {
   await boardPage.isAddACardButtonPresent();
 });
@@ -125,7 +125,7 @@ When('enters card titles and hits "Enter"', async () => {
 });
 Then("the new card should appear in the list", async () => {
   await boardPage.validateEachCardIsPresentAndHaveText(BOARD_CARD_NAMES);
-}); */
+});
 
 /* // Scenario: User filters cards on a board
 Given("the user is on an open board with multiple cards", async () => {

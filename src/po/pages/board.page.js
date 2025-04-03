@@ -47,6 +47,7 @@ export default class BoardPage extends BasePage {
     await this.board.boardListInput.click();
     await this.board.boardListInput.setValue(boardName);
     await browser.keys("Enter");
+    await browser.keys("Esc");
   }
 
   async verifyNewBoardIsDisplayed(boardName) {
@@ -107,7 +108,7 @@ export default class BoardPage extends BasePage {
   }
 
   async typeBoardCardName(cardName) {
-    await this.board.listCardInput.waitForDisplayed({ timeout: 20000 });
+    await this.board.listCardInput.waitForDisplayed({ timeout: 2000 });
     await this.board.listCardInput.setValue(cardName);
     await browser.keys("Enter");
   }
