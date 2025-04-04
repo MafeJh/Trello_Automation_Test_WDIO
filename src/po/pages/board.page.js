@@ -47,7 +47,7 @@ export default class BoardPage extends BasePage {
     await this.board.boardListInput.click();
     await this.board.boardListInput.setValue(boardName);
     await browser.keys("Enter");
-    await browser.keys("Esc");
+    await browser.keys("Escape");
   }
 
   async verifyNewBoardIsDisplayed(boardName) {
@@ -55,8 +55,6 @@ export default class BoardPage extends BasePage {
       timeout: 200000,
       timeoutMsg: "New board was not displayed",
     });
-
-    assert.isTrue(await this.board.newBoardList.isDisplayed());
 
     const actualText = await this.board.newBoardList.getText();
 

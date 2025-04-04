@@ -25,7 +25,7 @@ const BOARD_CARD_NAMES = [
   `${BOARD_NAME} card 2`,
 ];
 
-const _CardStatus = Object.freeze({
+const CardStatus = Object.freeze({
   MarkAsCompleted: "markAsCompleted",
   MarkAsNotCompleted: "markAsNotCompleted",
 });
@@ -127,7 +127,7 @@ Then("the new card should appear in the list", async () => {
   await boardPage.validateEachCardIsPresentAndHaveText(BOARD_CARD_NAMES);
 });
 
-/* // Scenario: User filters cards on a board
+// Scenario: User filters cards on a board
 Given("the user is on an open board with multiple cards", async () => {
   await boardPage.ensureBoardIsOpen(BOARD_NAME);
 });
@@ -141,18 +141,17 @@ Then(
   "only the cards matching the filter criteria should be displayed",
   async () => {
     await boardPage.validateFilterResult(CardStatus.MarkAsCompleted);
-  }
+  },
 );
 When(
   "enters a keyword or selects a label in the filter options as not completed",
   async () => {
     await boardPage.checkStatusMarkAsNotCompleted();
-  }
+  },
 );
-
 Then("non-matching cards should be hidden", async () => {
   await boardPage.validateFilterResult(CardStatus.MarkAsNotCompleted);
-}); */
+});
 
 //Scenario: User edits the workspace name and description
 Given("the user is on the workspace settings page", async () => {

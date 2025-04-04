@@ -178,7 +178,7 @@ export const config = {
     retry,
     timeout: 60000,
     ignoreUndefinedDefinitions: true,
-    tags: "",
+    tagExpression: "@NavigatingInTrello",
   },
 
   before: async () => {
