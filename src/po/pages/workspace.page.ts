@@ -1,6 +1,12 @@
-import { expect } from 'chai';
+//import { expect } from 'chai';
 import BasePage from './base.page';
 import WorkspaceComponent from '../components/common/workspace.component';
+
+
+import * as chai from 'chai';
+const expect = chai.expect;
+
+// ... y ya puedes usar `expect()` en tu código
 
 class WorkspacePage extends BasePage {
   workspace: WorkspaceComponent;

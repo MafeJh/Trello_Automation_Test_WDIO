@@ -18,9 +18,7 @@ class HomeBoardsPage extends BasePage {
     const emailText = await this.boards.emailElement.getText();
     const errorMessage = 'Email does not match with the expected one';
 
-    expect(emailText).to.equal(expectedEmail, errorMessage);
-    assert.strictEqual(emailText, expectedEmail, errorMessage);
-    emailText.should.equal(expectedEmail, errorMessage);
+    expect(emailText).toBe(expectedEmail);
   }
 
   async clickOnProfileAndVisibility() {
@@ -32,9 +30,8 @@ class HomeBoardsPage extends BasePage {
     const errorMessage = 'Board URL does not match with the expected one';
     const matchingRegex = /\/mafejimenezh\/boards$/;
 
-    expect(currentUrl).to.match(matchingRegex, errorMessage);
-    assert.match(currentUrl, matchingRegex, errorMessage);
-    currentUrl.should.match(matchingRegex, errorMessage);
+    expect(currentUrl).toMatch(matchingRegex);
+    //assert.match(currentUrl, matchingRegex, errorMessage);
   }
 
   async goToBoards() {

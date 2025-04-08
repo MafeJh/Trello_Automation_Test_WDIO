@@ -1,9 +1,14 @@
 import { browser } from '@wdio/globals';
-import { assert, expect } from 'chai';
+//import { assert, expect } from 'chai';
 import BasePage from './base.page';
 import BoardComponent from '../components/board/board.component';
 import WorkSpaceComponent from '../components/common/workspace.component';
 import FilterComponent from '../components/board/filter.component';
+
+import * as chai from 'chai';
+const expect = chai.expect;
+const assert = chai.assert;
+
 
 export default class BoardPage extends BasePage {
   board: BoardComponent;
