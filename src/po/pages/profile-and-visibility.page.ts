@@ -1,17 +1,20 @@
-import BasePage from "./base.page";
-import ProfileAndVisibilityComponent from "../components/profile-and-visibility/profile-and-visibility.component";
+import { browser } from '@wdio/globals';
+import BasePage from './base.page';
+import ProfileAndVisibilityComponent from '../components/profile-and-visibility/profile-and-visibility.component';
 
 class ProfileAndVisibilityPage extends BasePage {
+  profileAndVisibility: ProfileAndVisibilityComponent;
+
   constructor() {
-    super("/es");
+    super('/es');
     this.profileAndVisibility = new ProfileAndVisibilityComponent();
   }
 
-  async enterUsername(username) {
+  async enterUsername(username: string) {
     await this.profileAndVisibility.usernameInput.setValue(username);
   }
 
-  async enterBiography(biographyDescription) {
+  async enterBiography(biographyDescription: string) {
     await this.profileAndVisibility.biographyInput.setValue(
       biographyDescription,
     );
@@ -21,17 +24,16 @@ class ProfileAndVisibilityPage extends BasePage {
     await this.profileAndVisibility.saveButton.click();
   }
 
-  async validateEndpointUsername(username) {
+  async validateEndpointUsername(username: string) {
     const currentUrl = await browser.getUrl();
     const regex = new RegExp(`/${username}`);
     const errorMessage = `URL does not end in '/${username}'`;
 
-    expect(currentUrl).to.match(regex, errorMessage);
     assert.match(currentUrl, regex, errorMessage);
     currentUrl.should.match(regex, errorMessage);
   }
 
-  async updateProfile(username, biography) {
+  async updateProfile(username: string, biography: string) {
     await this.enterUsername(username);
     await this.enterBiography(biography);
     await this.clickOnSaveButton();
@@ -42,9 +44,8 @@ class ProfileAndVisibilityPage extends BasePage {
     const alertText = await this.profileAndVisibility.alertSaved.getText();
     const errorMessage = `Alert message is not the expected one`;
 
-    expect(alertText).to.equal("Guardado", errorMessage);
-    assert.strictEqual(alertText, "Guardado", errorMessage);
-    alertText.should.equal("Guardado", errorMessage);
+    expect(alertText).toBe('Guardado');
+    assert.strictEqual(alertText, 'Guardado', errorMessage);
   }
 }
 

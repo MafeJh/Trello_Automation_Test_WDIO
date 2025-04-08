@@ -1,10 +1,10 @@
-import LandingPage from "./landing.page";
-import HomeBoardsPage from "./home-boards.page";
-import SignInPage from "./sign-in.page";
-import ProfileAndVisibilityPage from "./profile-and-visibility.page";
-import HeaderPage from "./header.page";
-import BoardPage from "./board.page";
-import WorkspacePage from "./workspace.page";
+import LandingPage from './landing.page';
+import HomeBoardsPage from './home-boards.page';
+import SignInPage from './sign-in.page';
+import ProfileAndVisibilityPage from './profile-and-visibility.page';
+import HeaderPage from './header.page';
+import BoardPage from './board.page';
+import WorkspacePage from './workspace.page';
 /**
  *
  * @param {*} page {'Home'}

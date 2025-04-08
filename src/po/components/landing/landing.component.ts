@@ -1,8 +1,8 @@
-import BaseComponent from "../common/base.component";
+import BaseComponent from '../common/base.component';
 
 class LandingComponent extends BaseComponent {
   constructor() {
-    super("div#BXP-APP");
+    super('div#BXP-APP');
   }
 
   get singInButton() {

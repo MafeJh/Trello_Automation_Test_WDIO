@@ -1,8 +1,9 @@
-import BaseComponent from "../common/base.component";
+import BaseComponent from '../common/base.component';
+import { $ } from '@wdio/globals';
 
 class BoardComponent extends BaseComponent {
   constructor() {
-    super("#content-wrapper");
+    super('#content-wrapper');
   }
 
   get boardTitle() {
@@ -10,7 +11,7 @@ class BoardComponent extends BaseComponent {
   }
 
   get boardHeader() {
-    return this.rootEl.$(".board-header");
+    return this.rootEl.$('.board-header');
   }
 
   get boardMenuBtn() {
@@ -51,7 +52,7 @@ class BoardComponent extends BaseComponent {
     );
   }
 
-  optionToOrderByBtn(option) {
+  optionToOrderByBtn(option: number) {
     return $(
       `.atlaskit-portal-container section[data-testid="list-actions-popover"] ul > li:nth-child(${option}) a`,
     );
@@ -76,7 +77,7 @@ class BoardComponent extends BaseComponent {
   }
 
   get closeBoardBtn() {
-    return this.boardMenu.$("li:nth-child(19) > button");
+    return this.boardMenu.$('li:nth-child(19) > button');
   }
 
   get confirmCloseBoardBtn() {
@@ -101,7 +102,7 @@ class BoardComponent extends BaseComponent {
     );
   }
 
-  cardElement(position) {
+  cardElement(position: number) {
     return this.rootEl.$(
       `li:nth-of-type(${position}) a[data-testid="card-name"]`,
     );
@@ -112,7 +113,7 @@ class BoardComponent extends BaseComponent {
   }
 
   get quantityOfMatchesMessage() {
-    return $("ol#board li:nth-child(4) p");
+    return $('ol#board li:nth-child(4) p');
   }
 }
 

@@ -1,9 +1,11 @@
-import BasePage from "./base.page";
-import BoardsComponent from "../components/home-boards/home-boards.component";
+import { browser } from '@wdio/globals';
+import BasePage from './base.page';
+import BoardsComponent from '../components/home-boards/home-boards.component';
 
 class HomeBoardsPage extends BasePage {
+  boards: BoardsComponent;
   constructor() {
-    super("/es");
+    super('/es');
     this.boards = new BoardsComponent();
   }
 
@@ -14,7 +16,7 @@ class HomeBoardsPage extends BasePage {
     await this.boards.accountButton.click();
 
     const emailText = await this.boards.emailElement.getText();
-    const errorMessage = "Email does not match with the expected one";
+    const errorMessage = 'Email does not match with the expected one';
 
     expect(emailText).to.equal(expectedEmail, errorMessage);
     assert.strictEqual(emailText, expectedEmail, errorMessage);
@@ -27,7 +29,7 @@ class HomeBoardsPage extends BasePage {
 
   async validateHomeBoardsEndpoint() {
     const currentUrl = await browser.getUrl();
-    const errorMessage = "Board URL does not match with the expected one";
+    const errorMessage = 'Board URL does not match with the expected one';
     const matchingRegex = /\/mafejimenezh\/boards$/;
 
     expect(currentUrl).to.match(matchingRegex, errorMessage);

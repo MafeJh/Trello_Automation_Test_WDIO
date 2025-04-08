@@ -1,4 +1,4 @@
-import BaseComponent from "../common/base.component";
+import BaseComponent from './base.component';
 
 class HeaderComponent extends BaseComponent {
   constructor() {

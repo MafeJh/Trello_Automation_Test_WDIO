@@ -1,17 +1,23 @@
-import BasePage from "./base.page";
-import BoardComponent from "../components/board/board.component";
-import WorkSpaceComponent from "../components/common/workspace.component";
-import FilterComponent from "../components/board/filter.component";
+import { browser } from '@wdio/globals';
+import { assert, expect } from 'chai';
+import BasePage from './base.page';
+import BoardComponent from '../components/board/board.component';
+import WorkSpaceComponent from '../components/common/workspace.component';
+import FilterComponent from '../components/board/filter.component';
 
 export default class BoardPage extends BasePage {
+  board: BoardComponent;
+  workSpace: WorkSpaceComponent;
+  filter: FilterComponent;
+
   constructor() {
-    super("/es");
+    super('/es');
     this.board = new BoardComponent();
     this.workSpace = new WorkSpaceComponent();
     this.filter = new FilterComponent();
   }
 
-  async ensureBoardIsOpen(expectedTitle) {
+  async ensureBoardIsOpen(expectedTitle: string) {
     await this.board.boardTitle.waitForDisplayed({ timeout: 20000 });
 
     const currentTitle = await this.board.boardTitle.getText();
@@ -19,7 +25,7 @@ export default class BoardPage extends BasePage {
     expect(currentTitle).to.match(new RegExp(expectedTitle));
   }
 
-  async validateEndpointBoardsTitle(boardName) {
+  async validateEndpointBoardsTitle(boardName: string) {
     const expectedURL = `/${boardName}`;
 
     await browser.waitUntil(
@@ -34,7 +40,7 @@ export default class BoardPage extends BasePage {
 
     expect(currentURL).to.include(expectedURL);
     assert.include(currentURL, expectedURL);
-    currentURL.should.include(expectedURL);
+    //currentURL.should.include(expectedURL);
   }
 
   async clickOnNewBoardListAction() {
@@ -42,32 +48,32 @@ export default class BoardPage extends BasePage {
     await this.board.addBoardListActionBtn.click();
   }
 
-  async typeBoardListName(boardName) {
+  async typeBoardListName(boardName: string) {
     await this.board.boardListInput.waitForDisplayed({ timeout: 10000 });
     await this.board.boardListInput.click();
     await this.board.boardListInput.setValue(boardName);
-    await browser.keys("Enter");
-    await browser.keys("Escape");
+    await browser.keys('Enter');
+    await browser.keys('Escape');
   }
 
-  async verifyNewBoardIsDisplayed(boardName) {
+  async verifyNewBoardIsDisplayed(boardName: string) {
     await this.board.newBoardList.waitForDisplayed({
       timeout: 200000,
-      timeoutMsg: "New board was not displayed",
+      timeoutMsg: 'New board was not displayed',
     });
 
     const actualText = await this.board.newBoardList.getText();
 
-    actualText.should.include(boardName);
+    expect(actualText).to.include(boardName);
   }
 
-  async validateEachCardIsPresentAndHaveText(cardNames) {
+  async validateEachCardIsPresentAndHaveText(cardNames: string[]) {
     for (let position = 0; position < cardNames.length; position++) {
       await this.isCardPresentAndHaveText(position + 1, cardNames[position]);
     }
   }
 
-  async isCardPresentAndHaveText(position, expectedCardName) {
+  async isCardPresentAndHaveText(position: number, expectedCardName: string) {
     await this.board.cardElement(position).waitForDisplayed({ timeout: 5000 });
     await browser.pause(1000);
 
@@ -79,7 +85,6 @@ export default class BoardPage extends BasePage {
       expectedCardName,
       `Text does match with the card in position ${position}`,
     );
-    currentText.should.equal(expectedCardName);
   }
 
   async openWorkSpace() {
@@ -105,13 +110,13 @@ export default class BoardPage extends BasePage {
     assert.isTrue(isDisplayed, "Button 'Añade una tarjeta' is not present.");
   }
 
-  async typeBoardCardName(cardName) {
+  async typeBoardCardName(cardName: string) {
     await this.board.listCardInput.waitForDisplayed({ timeout: 2000 });
     await this.board.listCardInput.setValue(cardName);
-    await browser.keys("Enter");
+    await browser.keys('Enter');
   }
 
-  async createCardOnList(cardNames) {
+  async createCardOnList(cardNames: string[]) {
     await this.clickOnNewCardAction();
     for (const cardName of cardNames) {
       await this.typeBoardCardName(cardName);
@@ -142,7 +147,7 @@ export default class BoardPage extends BasePage {
     return await this.board.quantityOfMatchesMessage.getText();
   }
 
-  async validateFilterResult(status) {
+  async validateFilterResult(status: 'markAsCompleted' | 'markAsNotCompleted') {
     const expectedCounts = {
       markAsCompleted: 0,
       markAsNotCompleted: 3,
@@ -155,8 +160,7 @@ export default class BoardPage extends BasePage {
     assert.strictEqual(
       actualMessage,
       expectedMessage,
-      "Message does not match with the expected one",
+      'Message does not match with the expected one',
     );
-    actualMessage.should.equal(expectedMessage);
   }
 }

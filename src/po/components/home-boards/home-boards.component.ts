@@ -1,8 +1,9 @@
-import BaseComponent from "../common/base.component";
+import { $ } from '@wdio/globals';
+import BaseComponent from '../common/base.component';
 
 class HomeBoardsComponent extends BaseComponent {
   constructor() {
-    super("body");
+    super('body');
   }
 
   get accountButton() {
@@ -25,7 +26,7 @@ class HomeBoardsComponent extends BaseComponent {
 
   get boardsBtn() {
     return $(
-      "#content div.boards-page-board-section-header-options > a:nth-child(1)",
+      '#content div.boards-page-board-section-header-options > a:nth-child(1)',
     );
   }
 }

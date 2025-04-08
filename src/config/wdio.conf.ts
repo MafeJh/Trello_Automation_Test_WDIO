@@ -1,55 +1,61 @@
-import chai from "chai";
-import { ReportAggregator, HtmlReporter } from "wdio-html-nice-reporter";
+//import { assert, expect} from '../../types/global.d.ts';
 
-const browser = (process.env.BROWSER || "chrome").trim();
-const retry = process.env.RETRY || 0;
-const maxInstances = process.env.MAX_INSTANCES || 1;
+//import { ReportAggregator, HtmlReporter } from 'wdio-html-nice-reporter';
+//import type { TestrunnerCapabilities } from '@wdio/types';
+import * as chai from 'chai';
+
+const chaiExpect = chai.expect;
+const assert = chai.assert;
+
+const browser: string = (process.env.BROWSER || 'chrome').trim();
+const retry: number = parseInt(process.env.RETRY || '0')
+const maxInstances: number = parseInt(process.env.MAX_INSTANCES || '1');
 // Report Aggregator Instance
-let reportAggregator = null;
+//let reportAggregator: ReportAggregator;
 
 // Language setting
-const LANGUAGE = "es"; // Set the desired language here
+const LANGUAGE = 'es'; // Set the desired language here
 
 // Chrome Configuration
 const CHROME_CONFIG = {
-  browserName: "chrome",
+  browserName: 'chrome',
   acceptInsecureCerts: true,
-  "goog:chromeOptions": {
+  'goog:chromeOptions': {
     args: [`--lang=${LANGUAGE}`], // Set language to Spanish
   },
 };
 
 const CHROME_HEADLESS_CONFIG = {
   ...CHROME_CONFIG,
-  "goog:chromeOptions": {
-    args: ["--headless", "--disable-gpu", `--lang=${LANGUAGE}`], // Set language to Spanish
+  'goog:chromeOptions': {
+    args: ['--headless', '--disable-gpu', `--lang=${LANGUAGE}`], // Set language to Spanish
   },
 };
 
 // Firefox Configuration
 const FIREFOX_CONFIG = {
-  browserName: "firefox",
+  browserName: 'firefox',
   acceptInsecureCerts: true,
 };
 
 const FIREFOX_HEADLESS_CONFIG = {
   ...FIREFOX_CONFIG,
-  "moz:firefoxOptions": {
-    args: ["-headless"],
+  'moz:firefoxOptions': {
+    args: ['-headless'],
     prefs: {
-      "intl.accept_languages": LANGUAGE, // Set language to Spanish
+      'intl.accept_languages': LANGUAGE, // Set language to Spanish
     },
   },
 };
 
 // Safari Configuration
 const SAFARI_CONFIG = {
-  browserName: "safari",
+  browserName: 'safari',
   acceptInsecureCerts: true,
   // Note: Language settings for Safari cannot be set directly through WebDriver
 };
 
-const CAPABILITIES = {
+const CAPABILITIES: { [key: string]: any[] } = {
   all: [CHROME_CONFIG, FIREFOX_CONFIG, SAFARI_CONFIG],
   all_headless: [CHROME_HEADLESS_CONFIG, FIREFOX_HEADLESS_CONFIG],
   chrome: [CHROME_CONFIG],
@@ -61,10 +67,11 @@ const CAPABILITIES = {
 
 CAPABILITIES[browser];
 
-export const config = {
-  runner: "local",
+export const config: WebdriverIO.Config = {
+  runner: 'local',
 
-  specs: ["../**/*.feature"],
+  specs: ['../**/*.feature'],
+  tsConfigPath: './../../tsconfig.json',
 
   exclude: [
     // 'path/to/excluded/files'
@@ -74,7 +81,7 @@ export const config = {
 
   capabilities: CAPABILITIES[browser],
   // Level of logging verbosity: trace | debug | info | warn | error | silent
-  logLevel: "error",
+  logLevel: 'error',
   //
   // Set specific log levels per logger
   // loggers:
@@ -98,7 +105,7 @@ export const config = {
   // with `/`, the base url gets prepended, not including the path portion of your baseUrl.
   // If your `url` parameter starts without a scheme or `/` (like `some/path`), the base url
   // gets prepended directly.
-  baseUrl: "https://trello.com",
+  baseUrl: 'https://trello.com',
   //
   // Default timeout for all waitFor* commands.
   waitforTimeout: 10000,
@@ -118,7 +125,7 @@ export const config = {
 
   reporters: [
     [
-      "spec",
+      'spec',
       {
         onlyFailures: false, // Muestra todos los logs, no solo los fallidos
         addConsoleLogs: true, // Incluye los logs de console.log() en el reporte
@@ -126,68 +133,70 @@ export const config = {
         sauceLabsSharableLinks: false, // No genera enlaces compartibles en SauceLabs
         realtimeReporting: true, // Habilita la actualización en tiempo real del reporte
         symbols: {
-          passed: "[PASS]", // Personaliza el prefijo de pruebas pasadas
-          failed: "[FAIL]", // Personaliza el prefijo de pruebas fallidas
+          passed: '[PASS]', // Personaliza el prefijo de pruebas pasadas
+          failed: '[FAIL]', // Personaliza el prefijo de pruebas fallidas
         },
       },
-    ],
+    ],/*
     [
-      HtmlReporter,
+      'html-nice-reporter',
       {
         debug: true,
-        outputDir: "./@reports/html-reports/", // Directorio donde se guardarán los reportes
-        filename: "report.html", // Nombre del archivo HTML generado
-        reportTitle: "HTML Report", // Título del reporte
+        outputDir: './@reports/html-reports/', // Directorio donde se guardarán los reportes
+        filename: 'report.html', // Nombre del archivo HTML generado
+        reportTitle: 'HTML Report', // Título del reporte
         linkScreenshots: true, // Habilita enlaces a capturas de pantalla en el reporte
         showInBrowser: true, // Abre el reporte en el navegador después de la ejecución
         collapseTests: false, // Muestra todas las pruebas expandidas en el reporte
         useOnAfterCommandForScreenshot: false, // Desactiva capturas automáticas después de cada comando
       },
-    ],
+    ],*/
   ],
 
-  onPrepare: function (config, capabilities) {
+  /*
+  onPrepare: function (_, capabilities: TestrunnerCapabilities) {
     reportAggregator = new ReportAggregator({
-      outputDir: "./@reports/html-reports/",
-      filename: "report.html",
-      reportTitle: "HTML Report",
-      browserName: capabilities.browserName,
+      outputDir: './@reports/html-reports/',
+      filename: 'report.html',
+      reportTitle: 'HTML Report',
+      browserName: capabilities.browserName || 'chrome',
       collapseTests: true,
     });
     reportAggregator.clean();
   },
 
-  onComplete: async function () {// exitCode, config, capabilities, results
+  onComplete: async function () {
+    // exitCode, config, capabilities, results
     if (reportAggregator) {
       try {
         await reportAggregator.createReport();
       } catch (error) {
-        console.error("Error al generar el reporte:", error);
+        console.error('Error al generar el reporte:', error);
       }
     } else {
-      console.error("ReportAggregator no está inicializado.");
+      console.error('ReportAggregator no está inicializado.');
     }
   },
+  */
 
-  services: ["chromedriver", "geckodriver"],
+  services: ['chromedriver', 'geckodriver'],
 
-  framework: "cucumber",
+  framework: 'cucumber',
 
   cucumberOpts: {
-    require: ["./**/*.step.js"],
+    require: ['./**/*.step.ts'],
     retry,
     timeout: 60000,
     ignoreUndefinedDefinitions: true,
-    tagExpression: "@NavigatingInTrello",
+    tagExpression: '@NavigatingInTrello',
   },
 
   before: async () => {
     const wdioExpect = global.expect;
 
-    global.expect = chai.expect;
-    global.assert = chai.assert;
-    global.should = chai.should();
+    global.expect = wdioExpect;
+    global.assert = assert;
 
-    global.wdioExpect = wdioExpect;
+    //global.wdioExpect = wdioExpect;
   },
 };

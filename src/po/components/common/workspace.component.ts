@@ -1,4 +1,5 @@
-import BaseComponent from "./base.component";
+import { $ } from '@wdio/globals';
+import BaseComponent from './base.component';
 
 class WorkSpaceComponent extends BaseComponent {
   constructor() {
@@ -34,19 +35,19 @@ class WorkSpaceComponent extends BaseComponent {
   }
 
   get workSpaceName() {
-    return this.rootEl.$("h2.SiP6d2d_8FAAkC");
+    return this.rootEl.$('h2.SiP6d2d_8FAAkC');
   }
 
   get workSpaceDescription() {
-    return this.rootEl.$("div.ak-renderer-document p");
+    return this.rootEl.$('div.ak-renderer-document p');
   }
 
   get searchInput() {
-    return this.rootEl.$("input#search");
+    return this.rootEl.$('input#search');
   }
 
   get boardCardLink() {
-    return this.rootEl.$("main > section > ul > li:nth-child(2) a");
+    return this.rootEl.$('main > section > ul > li:nth-child(2) a');
   }
 }
 

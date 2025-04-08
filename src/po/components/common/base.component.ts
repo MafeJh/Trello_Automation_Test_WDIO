@@ -1,5 +1,7 @@
+import { $ } from '@wdio/globals';
+
 class BaseComponent {
-  constructor(rootSelector) {
+  constructor(private rootSelector: string) {
     this.rootSelector = rootSelector;
   }
 

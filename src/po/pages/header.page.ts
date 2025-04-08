@@ -1,10 +1,13 @@
-import BasePage from "./base.page";
-import HeaderComponent from "../components/common/header.component";
-import BoardPopoverComponent from "../components/common/board-popover.component";
+import BasePage from './base.page';
+import HeaderComponent from '../components/common/header.component';
+import BoardPopoverComponent from '../components/common/board-popover.component';
 
 class HeaderPage extends BasePage {
+  header: HeaderComponent;
+  boardPopover: BoardPopoverComponent;
+
   constructor() {
-    super("/");
+    super('/');
     this.header = new HeaderComponent();
     this.boardPopover = new BoardPopoverComponent();
   }

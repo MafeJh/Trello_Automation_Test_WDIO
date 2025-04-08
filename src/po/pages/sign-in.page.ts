@@ -1,13 +1,15 @@
-import BasePage from "./base.page";
-import LogInComponent from "../components/sign-in/sign-in.component";
+import BasePage from './base.page';
+import LogInComponent from '../components/sign-in/sign-in.component';
 
 class LogInPage extends BasePage {
+  logIn: LogInComponent;
+
   constructor() {
-    super("/es");
+    super('/es');
     this.logIn = new LogInComponent();
   }
 
-  async typeInEmailInput(email) {
+  async typeInEmailInput(email: string) {
     await this.logIn.emailInput.waitForDisplayed();
     await this.logIn.emailInput.setValue(email);
   }
@@ -25,7 +27,7 @@ class LogInPage extends BasePage {
     await this.logIn.logInButton.click();
   }
 
-  async singIn(email, password) {
+  async singIn(email: string, password: string) {
     await this.typeInEmailInput(email);
     await this.clickOnContinueButton();
     await this.typeInPasswordInput(password);

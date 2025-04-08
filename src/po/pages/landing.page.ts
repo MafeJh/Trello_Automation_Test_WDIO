@@ -1,9 +1,11 @@
-import BasePage from "./base.page";
-import LandingComponent from "../components/landing/landing.component";
+import BasePage from './base.page';
+import LandingComponent from '../components/landing/landing.component';
 
 class LandingPage extends BasePage {
+  landing: LandingComponent;
+
   constructor() {
-    super("/es");
+    super('/es');
     this.landing = new LandingComponent();
   }
 

@@ -1,5 +1,7 @@
+import { browser } from '@wdio/globals';
+
 class BasePage {
-  constructor(url) {
+  constructor(private url: string) {
     this.url = url;
   }
 

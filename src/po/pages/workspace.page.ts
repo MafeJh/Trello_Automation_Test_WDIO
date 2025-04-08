@@ -1,9 +1,12 @@
-import BasePage from "./base.page";
-import WorkspaceComponent from "../components/common/workspace.component";
+import { expect } from 'chai';
+import BasePage from './base.page';
+import WorkspaceComponent from '../components/common/workspace.component';
 
 class WorkspacePage extends BasePage {
+  workspace: WorkspaceComponent;
+
   constructor() {
-    super("/es");
+    super('/es');
     this.workspace = new WorkspaceComponent();
   }
 
