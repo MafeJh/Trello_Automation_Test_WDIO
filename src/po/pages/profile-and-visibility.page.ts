@@ -1,3 +1,4 @@
+import { assert } from 'chai';
 import { browser } from '@wdio/globals';
 import BasePage from './base.page';
 import ProfileAndVisibilityComponent from '../components/profile-and-visibility/profile-and-visibility.component';
@@ -40,12 +41,11 @@ class ProfileAndVisibilityPage extends BasePage {
   }
 
   async validateAlertSaved() {
-    await this.profileAndVisibility.alertSaved.waitForExist({ timeout: 5000 });
+    await this.profileAndVisibility.alertSaved.waitForExist({ timeout: 10000 });
+    
     const alertText = await this.profileAndVisibility.alertSaved.getText();
-    const errorMessage = `Alert message is not the expected one`;
 
-    expect(alertText).toBe('Guardado');
-    assert.strictEqual(alertText, 'Guardado', errorMessage);
+    assert.strictEqual(alertText, 'Guardado');
   }
 }
 

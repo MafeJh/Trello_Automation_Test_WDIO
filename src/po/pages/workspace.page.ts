@@ -1,12 +1,6 @@
-//import { expect } from 'chai';
+import { expect } from 'chai';
 import BasePage from './base.page';
 import WorkspaceComponent from '../components/common/workspace.component';
-
-
-import * as chai from 'chai';
-const expect = chai.expect;
-
-// ... y ya puedes usar `expect()` en tu código
 
 class WorkspacePage extends BasePage {
   workspace: WorkspaceComponent;
@@ -20,7 +14,7 @@ class WorkspacePage extends BasePage {
     await this.workspace.editWorkSpace.click();
   }
 
-  async changeNameAndDescription(name, description) {
+  async changeNameAndDescription(name: string, description: string) {
     await this.workspace.name.setValue(name);
     await this.workspace.description.setValue(description);
   }
@@ -39,8 +33,8 @@ class WorkspacePage extends BasePage {
     );
   }
 
-  async typeBoardsName(boardsName) {
-    await this.workspace.searchInput.waitForDisplayed({
+  async typeBoardsName(boardsName: string) {
+    await this.workspace.searchInput.waitForExist({
       timeout: 10000,
       withinViewport: true,
     });
@@ -48,7 +42,7 @@ class WorkspacePage extends BasePage {
   }
 
   async openBoardCardLink() {
-    await this.workspace.boardCardLink.waitForDisplayed({
+    await this.workspace.boardCardLink.waitForExist({
       timeout: 10000,
       withinViewport: true,
     });

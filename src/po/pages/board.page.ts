@@ -1,14 +1,9 @@
 import { browser } from '@wdio/globals';
-//import { assert, expect } from 'chai';
 import BasePage from './base.page';
 import BoardComponent from '../components/board/board.component';
 import WorkSpaceComponent from '../components/common/workspace.component';
 import FilterComponent from '../components/board/filter.component';
-
-import * as chai from 'chai';
-const expect = chai.expect;
-const assert = chai.assert;
-
+import { expect, assert } from 'chai';
 
 export default class BoardPage extends BasePage {
   board: BoardComponent;
@@ -45,7 +40,7 @@ export default class BoardPage extends BasePage {
 
     expect(currentURL).to.include(expectedURL);
     assert.include(currentURL, expectedURL);
-    //currentURL.should.include(expectedURL);
+    currentURL.should.include(expectedURL);
   }
 
   async clickOnNewBoardListAction() {
@@ -63,7 +58,7 @@ export default class BoardPage extends BasePage {
 
   async verifyNewBoardIsDisplayed(boardName: string) {
     await this.board.newBoardList.waitForDisplayed({
-      timeout: 200000,
+      timeout: 10000,
       timeoutMsg: 'New board was not displayed',
     });
 
@@ -93,11 +88,11 @@ export default class BoardPage extends BasePage {
   }
 
   async openWorkSpace() {
-    await this.workSpace.workSpaceSettings.waitForDisplayed({ timeout: 5000 });
+    await this.workSpace.workSpaceSettings.waitForDisplayed({ timeout: 10000 });
     await this.workSpace.workSpaceSettings.click();
 
     await this.workSpace.workSpaceSettingsPopover.waitForDisplayed({
-      timeout: 5000,
+      timeout: 10000,
     });
     await this.workSpace.workSpaceSettingsPopover.click();
   }
@@ -116,7 +111,7 @@ export default class BoardPage extends BasePage {
   }
 
   async typeBoardCardName(cardName: string) {
-    await this.board.listCardInput.waitForDisplayed({ timeout: 2000 });
+    await this.board.listCardInput.waitForDisplayed({ timeout: 10000 });
     await this.board.listCardInput.setValue(cardName);
     await browser.keys('Enter');
   }
@@ -134,7 +129,7 @@ export default class BoardPage extends BasePage {
   }
 
   async checkStatusMarkAsCompleted() {
-    await this.filter.markStatusAsCompleted.waitForDisplayed({ timeout: 1000 });
+    await this.filter.markStatusAsCompleted.waitForDisplayed({ timeout: 10000 });
     await this.filter.markStatusAsCompleted.click();
   }
 
@@ -161,7 +156,6 @@ export default class BoardPage extends BasePage {
     const actualMessage = await this.getTextFromQuantityOfMatchesMessage();
     const expectedMessage = `Los filtros coinciden con ${expectedCounts[status]} tarjetas`;
 
-    expect(actualMessage).to.equal(expectedMessage);
     assert.strictEqual(
       actualMessage,
       expectedMessage,

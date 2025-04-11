@@ -12,7 +12,7 @@ import WorkspacePage from './workspace.page';
  */
 // 'pages' function receive a page argument to return the instance of HomePage
 // HomePage has access to all the elements in the form (selector of those elements)
-export function pages(page) {
+export function pages(page: string) {
   const items = {
     landing: new LandingPage(),
     homeBoards: new HomeBoardsPage(),

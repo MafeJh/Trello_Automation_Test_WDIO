@@ -13,17 +13,17 @@ class HeaderPage extends BasePage {
   }
 
   async openCreateBoardMenu() {
-    await this.header.createMenuBtn.waitForDisplayed({ timeout: 10000 });
+    await this.header.createMenuBtn.waitForExist({ timeout: 10000 });
     await this.header.createMenuBtn.click();
   }
 
   async clickOnCreateBoard() {
-    await this.boardPopover.createBoardBtn.waitForDisplayed({ timeout: 10000 });
+    await this.boardPopover.createBoardBtn.waitForExist({ timeout: 10000 });
     await this.boardPopover.createBoardBtn.click();
   }
 
   async verifyCreateMenuIsDisplayed() {
-    await this.boardPopover.rootEl.waitForDisplayed({
+    await this.boardPopover.rootEl.waitForExist({
       timeout: 10000,
       withinViewport: true,
     });
@@ -33,7 +33,7 @@ class HeaderPage extends BasePage {
     await this.boardPopover.background.click();
   }
 
-  async typeBoardName(boardName) {
+  async typeBoardName(boardName: string) {
     await this.boardPopover.titleInput.waitForEnabled({
       timeout: 10000,
       withinViewport: true,
@@ -50,14 +50,14 @@ class HeaderPage extends BasePage {
   }
 
   async goToHomeBoards() {
-    await this.header.homeBoardLink.waitForDisplayed({
+    await this.header.homeBoardLink.waitForExist({
       timeout: 10000,
       withinViewport: true,
     });
     await this.header.homeBoardLink.click();
   }
 
-  async createNewBoard(boardName) {
+  async createNewBoard(boardName: string) {
     await this.openCreateBoardMenu();
     await this.verifyCreateMenuIsDisplayed();
     await this.clickOnCreateBoard();

@@ -16,7 +16,7 @@ class HomeBoardsComponent extends BaseComponent {
 
   get profileAndVisibility() {
     return this.rootEl.$(
-      "a[data-testid='account-menu-profile']  span.BmRHtH7FIX0jcL",
+      "a[data-testid='account-menu-profile']",
     );
   }
 

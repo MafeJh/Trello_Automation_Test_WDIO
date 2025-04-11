@@ -15,7 +15,7 @@ class WorkSpaceComponent extends BaseComponent {
   }
 
   get workSpaceSettingsPopover() {
-    return $('a[data-testid="popover-settings-button"] span.BmRHtH7FIX0jcL');
+    return $('a[data-testid="popover-settings-button"]');
   }
 
   get editWorkSpace() {

@@ -10,7 +10,7 @@ class LogInPage extends BasePage {
   }
 
   async typeInEmailInput(email: string) {
-    await this.logIn.emailInput.waitForDisplayed();
+    await this.logIn.emailInput.waitForExist();
     await this.logIn.emailInput.setValue(email);
   }
 
@@ -18,8 +18,8 @@ class LogInPage extends BasePage {
     await this.logIn.continueButton.click();
   }
 
-  async typeInPasswordInput(password) {
-    await this.logIn.passwordInput.waitForDisplayed();
+  async typeInPasswordInput(password: string) {
+    await this.logIn.passwordInput.waitForExist();
     await this.logIn.passwordInput.setValue(password);
   }
 

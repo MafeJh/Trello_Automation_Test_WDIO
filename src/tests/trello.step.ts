@@ -64,8 +64,9 @@ Then('the user should be redirected to the dashboard', async () => {
 });
 Then("the user's boards should be displayed", async () => {
   await homeBoardsPage.validateHomeBoardsEndpoint();
+  await browser.pause(1000);
 });
-/*
+
 // Scenario: User updates their profile information
 Given('the user is logged in and on their profile page', async () => {
   await homeBoardsPage.clickOnProfileAndVisibility();
@@ -77,6 +78,7 @@ Then('the profile should be updated with the new information', async () => {
   await profileAndVisibility.validateEndpointUsername(USERNAME);
 });
 Then('a success message should be displayed', async () => {
+  await browser.pause(1000);
   await profileAndVisibility.validateAlertSaved();
 });
 
@@ -201,4 +203,4 @@ Then(
     await boardPage.validateEndpointBoardsTitle(BOARD_NAME.toLowerCase());
     await boardPage.ensureBoardIsOpen(BOARD_NAME);
   },
-);*/
+);

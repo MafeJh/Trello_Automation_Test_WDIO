@@ -1,17 +1,11 @@
-//import { assert, expect} from '../../types/global.d.ts';
-
-//import { ReportAggregator, HtmlReporter } from 'wdio-html-nice-reporter';
-//import type { TestrunnerCapabilities } from '@wdio/types';
 import * as chai from 'chai';
-
-const chaiExpect = chai.expect;
-const assert = chai.assert;
+import { ReportAggregator } from 'wdio-html-nice-reporter';
 
 const browser: string = (process.env.BROWSER || 'chrome').trim();
-const retry: number = parseInt(process.env.RETRY || '0')
+const retry: number = parseInt(process.env.RETRY || '0');
 const maxInstances: number = parseInt(process.env.MAX_INSTANCES || '1');
 // Report Aggregator Instance
-//let reportAggregator: ReportAggregator;
+let reportAggregator: ReportAggregator;
 
 // Language setting
 const LANGUAGE = 'es'; // Set the desired language here
@@ -55,7 +49,7 @@ const SAFARI_CONFIG = {
   // Note: Language settings for Safari cannot be set directly through WebDriver
 };
 
-const CAPABILITIES: { [key: string]: any[] } = {
+const CAPABILITIES: { [key: string]: any[]; } = {
   all: [CHROME_CONFIG, FIREFOX_CONFIG, SAFARI_CONFIG],
   all_headless: [CHROME_HEADLESS_CONFIG, FIREFOX_HEADLESS_CONFIG],
   chrome: [CHROME_CONFIG],
@@ -137,9 +131,9 @@ export const config: WebdriverIO.Config = {
           failed: '[FAIL]', // Personaliza el prefijo de pruebas fallidas
         },
       },
-    ],/*
+    ],
     [
-      'html-nice-reporter',
+      'html-nice',
       {
         debug: true,
         outputDir: './@reports/html-reports/', // Directorio donde se guardarán los reportes
@@ -150,11 +144,10 @@ export const config: WebdriverIO.Config = {
         collapseTests: false, // Muestra todas las pruebas expandidas en el reporte
         useOnAfterCommandForScreenshot: false, // Desactiva capturas automáticas después de cada comando
       },
-    ],*/
+    ],
   ],
 
-  /*
-  onPrepare: function (_, capabilities: TestrunnerCapabilities) {
+  onPrepare: function (_, capabilities: any) {
     reportAggregator = new ReportAggregator({
       outputDir: './@reports/html-reports/',
       filename: 'report.html',
@@ -177,7 +170,6 @@ export const config: WebdriverIO.Config = {
       console.error('ReportAggregator no está inicializado.');
     }
   },
-  */
 
   services: ['chromedriver', 'geckodriver'],
 
@@ -194,9 +186,10 @@ export const config: WebdriverIO.Config = {
   before: async () => {
     const wdioExpect = global.expect;
 
-    global.expect = wdioExpect;
-    global.assert = assert;
+    (global as any).expect = chai.expect;
+    (global as any).assert = chai.assert;
+    (global as any).should = chai.should();
 
-    //global.wdioExpect = wdioExpect;
+    (global as any).wdioExpect = wdioExpect;
   },
 };
